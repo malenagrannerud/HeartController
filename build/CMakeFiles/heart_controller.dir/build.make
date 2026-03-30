@@ -69,108 +69,10 @@ include CMakeFiles/heart_controller.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/heart_controller.dir/flags.make
 
-CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o: CMakeFiles/heart_controller.dir/flags.make
-CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o: /workspaces/HeartController/src/frank_starling.cpp
-CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o -MF CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o.d -o CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o -c /workspaces/HeartController/src/frank_starling.cpp
-
-CMakeFiles/heart_controller.dir/src/frank_starling.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/frank_starling.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/frank_starling.cpp > CMakeFiles/heart_controller.dir/src/frank_starling.cpp.i
-
-CMakeFiles/heart_controller.dir/src/frank_starling.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/frank_starling.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/frank_starling.cpp -o CMakeFiles/heart_controller.dir/src/frank_starling.cpp.s
-
-CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o: CMakeFiles/heart_controller.dir/flags.make
-CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o: /workspaces/HeartController/src/starling_validator.cpp
-CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o -MF CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o.d -o CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o -c /workspaces/HeartController/src/starling_validator.cpp
-
-CMakeFiles/heart_controller.dir/src/starling_validator.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/starling_validator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/starling_validator.cpp > CMakeFiles/heart_controller.dir/src/starling_validator.cpp.i
-
-CMakeFiles/heart_controller.dir/src/starling_validator.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/starling_validator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/starling_validator.cpp -o CMakeFiles/heart_controller.dir/src/starling_validator.cpp.s
-
-CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o: CMakeFiles/heart_controller.dir/flags.make
-CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o: /workspaces/HeartController/src/pressure_converter.cpp
-CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o -MF CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o.d -o CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o -c /workspaces/HeartController/src/pressure_converter.cpp
-
-CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/pressure_converter.cpp > CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.i
-
-CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/pressure_converter.cpp -o CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.s
-
-CMakeFiles/heart_controller.dir/src/heart_model.cpp.o: CMakeFiles/heart_controller.dir/flags.make
-CMakeFiles/heart_controller.dir/src/heart_model.cpp.o: /workspaces/HeartController/src/heart_model.cpp
-CMakeFiles/heart_controller.dir/src/heart_model.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/heart_controller.dir/src/heart_model.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/heart_model.cpp.o -MF CMakeFiles/heart_controller.dir/src/heart_model.cpp.o.d -o CMakeFiles/heart_controller.dir/src/heart_model.cpp.o -c /workspaces/HeartController/src/heart_model.cpp
-
-CMakeFiles/heart_controller.dir/src/heart_model.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/heart_model.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/heart_model.cpp > CMakeFiles/heart_controller.dir/src/heart_model.cpp.i
-
-CMakeFiles/heart_controller.dir/src/heart_model.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/heart_model.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/heart_model.cpp -o CMakeFiles/heart_controller.dir/src/heart_model.cpp.s
-
-CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o: CMakeFiles/heart_controller.dir/flags.make
-CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o: /workspaces/HeartController/src/pressure_sensor.cpp
-CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o -MF CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o.d -o CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o -c /workspaces/HeartController/src/pressure_sensor.cpp
-
-CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/pressure_sensor.cpp > CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.i
-
-CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/pressure_sensor.cpp -o CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.s
-
-CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o: CMakeFiles/heart_controller.dir/flags.make
-CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o: /workspaces/HeartController/src/motor_controller.cpp
-CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o -MF CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o.d -o CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o -c /workspaces/HeartController/src/motor_controller.cpp
-
-CMakeFiles/heart_controller.dir/src/motor_controller.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/motor_controller.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/motor_controller.cpp > CMakeFiles/heart_controller.dir/src/motor_controller.cpp.i
-
-CMakeFiles/heart_controller.dir/src/motor_controller.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/motor_controller.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/motor_controller.cpp -o CMakeFiles/heart_controller.dir/src/motor_controller.cpp.s
-
-CMakeFiles/heart_controller.dir/src/display.cpp.o: CMakeFiles/heart_controller.dir/flags.make
-CMakeFiles/heart_controller.dir/src/display.cpp.o: /workspaces/HeartController/src/display.cpp
-CMakeFiles/heart_controller.dir/src/display.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/heart_controller.dir/src/display.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/display.cpp.o -MF CMakeFiles/heart_controller.dir/src/display.cpp.o.d -o CMakeFiles/heart_controller.dir/src/display.cpp.o -c /workspaces/HeartController/src/display.cpp
-
-CMakeFiles/heart_controller.dir/src/display.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/display.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/display.cpp > CMakeFiles/heart_controller.dir/src/display.cpp.i
-
-CMakeFiles/heart_controller.dir/src/display.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/display.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/display.cpp -o CMakeFiles/heart_controller.dir/src/display.cpp.s
-
 CMakeFiles/heart_controller.dir/src/main.cpp.o: CMakeFiles/heart_controller.dir/flags.make
 CMakeFiles/heart_controller.dir/src/main.cpp.o: /workspaces/HeartController/src/main.cpp
 CMakeFiles/heart_controller.dir/src/main.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/heart_controller.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/heart_controller.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/main.cpp.o -MF CMakeFiles/heart_controller.dir/src/main.cpp.o.d -o CMakeFiles/heart_controller.dir/src/main.cpp.o -c /workspaces/HeartController/src/main.cpp
 
 CMakeFiles/heart_controller.dir/src/main.cpp.i: cmake_force
@@ -183,29 +85,15 @@ CMakeFiles/heart_controller.dir/src/main.cpp.s: cmake_force
 
 # Object files for target heart_controller
 heart_controller_OBJECTS = \
-"CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o" \
-"CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o" \
-"CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o" \
-"CMakeFiles/heart_controller.dir/src/heart_model.cpp.o" \
-"CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o" \
-"CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o" \
-"CMakeFiles/heart_controller.dir/src/display.cpp.o" \
 "CMakeFiles/heart_controller.dir/src/main.cpp.o"
 
 # External object files for target heart_controller
 heart_controller_EXTERNAL_OBJECTS =
 
-heart_controller: CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o
-heart_controller: CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o
-heart_controller: CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o
-heart_controller: CMakeFiles/heart_controller.dir/src/heart_model.cpp.o
-heart_controller: CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o
-heart_controller: CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o
-heart_controller: CMakeFiles/heart_controller.dir/src/display.cpp.o
 heart_controller: CMakeFiles/heart_controller.dir/src/main.cpp.o
 heart_controller: CMakeFiles/heart_controller.dir/build.make
 heart_controller: CMakeFiles/heart_controller.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable heart_controller"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable heart_controller"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/heart_controller.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

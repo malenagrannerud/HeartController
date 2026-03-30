@@ -1,51 +1,53 @@
+
 #include "../include/display.h"
 #include <iostream>
+#include <iomanip>
 #include <cmath>
-#include <string>
 
 using namespace std;
 
-void Display::update(float inlet, float target, float outlet, float rpm, float current, float hr, float time) {
-    cout << "\033[2J\033[1;1H";
-    cout << "========================================" << endl;
-    cout << "TAH Left Ventricle Simulator" << endl;
-    cout << "Frank-Starling Control" << endl;
-    cout << "========================================" << endl;
-    cout << "Tid: " << time << " s | Puls: " << hr << " bpm" << endl;
-    cout << "----------------------------------------" << endl;
-    
-    drawBar("INLET (Preload)  ", inlet, 40);
-    drawBar("OUTLET (Target)  ", target, 40);
-    drawBar("OUTLET (Actual)  ", outlet, 40);
-    
-    float error = target - outlet;
-    cout << "\nREGLERFEL: " << error;
-    if (abs(error) < 0.5) cout << " [BRA]";
-    else if (abs(error) < 2.0) cout << " [OK]";
-    else cout << " [DALIGT]";
-    cout << endl;
-    
-    cout << "\nMOTOR: " << rpm << " RPM | " << current << " mA" << endl;
-    cout << "Frank-Starling: " << inlet << " mmHg -> " << target << " mmHg" << endl;
-    cout << "----------------------------------------" << endl;
-}
+static bool header_printed = false;
 
-void Display::drawBar(string label, float value, float maxVal) {
-    int len = 40;
-    int filled = (int)((value / maxVal) * len);
-    cout << label << ": [";
-    for (int i = 0; i < len; i++) {
-        if (i < filled) cout << "#";
-        else cout << ".";
+void Display::update(float preload_mmHg, float target_mmHg, float actual_mmHg,
+                     float motor_rpm, float motor_current_mA,
+                     float heart_rate_bpm, float simulation_time_s) {
+    
+    if (!header_printed) {
+        cout << "================================================================================" << endl;
+        cout << "                    TAH Right Ventricle - Frank-Starling" << endl;
+        cout << "================================================================================" << endl;
+        cout << endl;
+        cout << "  Tid(s)   Puls(bpm)   Inlet(mmHg)   Target(mmHg)   Actual(mmHg)   Setpoint(V)   Error(mmHg)   Error(V)" << endl;
+        cout << "  -----------------------------------------------------------------------------------------------------" << endl;
+        header_printed = true;
     }
-    cout << "] " << value << " mmHg" << endl;
+    
+    float setpoint_volt = target_mmHg * 0.0097;
+    float error_mmHg = target_mmHg - actual_mmHg;
+    float error_volt = error_mmHg * 0.0097;
+    
+    cout << "  " << fixed << setprecision(1) << setw(6) << simulation_time_s;
+    cout << "   " << setw(6) << heart_rate_bpm;
+    cout << "   " << setw(9) << preload_mmHg;
+    cout << "   " << setw(10) << target_mmHg;
+    cout << "   " << setw(10) << actual_mmHg;
+    cout << "   " << setw(10) << setpoint_volt;
+    cout << "   " << setw(9) << error_mmHg;
+    cout << "   " << setw(7) << error_volt << endl;
 }
 
-void Display::printStats(float avgInlet, float avgOutlet, float avgError) {
-    cout << "\n========================================" << endl;
-    cout << "STATISTIK:" << endl;
-    cout << "  Medel inlopp:  " << avgInlet << " mmHg" << endl;
-    cout << "  Medel utlopp:  " << avgOutlet << " mmHg" << endl;
-    cout << "  Medel fel:     " << avgError << " mmHg" << endl;
-    cout << "========================================" << endl;
+void Display::showControls() {
+    cout << "\n-----------------------------------------------------------------------------------------------------" << endl;
+    cout << "  KOMMANDON:  [q] Avsluta   [↑] Öka puls   [↓] Minska puls" << endl;
+    cout << "-----------------------------------------------------------------------------------------------------" << endl;
+}
+
+void Display::printStats(float avg_preload_mmHg, float avg_afterload_mmHg, float avg_error_mmHg) {
+    cout << "\n================================================================================" << endl;
+    cout << "  SIMULERING KLAR" << endl;
+    cout << "================================================================================" << endl;
+    cout << "  Medel inlopp:   " << fixed << setprecision(1) << avg_preload_mmHg << " mmHg" << endl;
+    cout << "  Medel utlopp:   " << avg_afterload_mmHg << " mmHg" << endl;
+    cout << "  Medel fel:      " << avg_error_mmHg << " mmHg" << endl;
+    cout << "================================================================================" << endl;
 }

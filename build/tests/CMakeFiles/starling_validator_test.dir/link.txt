@@ -1,1 +1,0 @@
-/usr/bin/c++  -Wall -Wextra CMakeFiles/starling_validator_test.dir/unit/test_starling_validator.cpp.o CMakeFiles/starling_validator_test.dir/__/src/starling_validator.cpp.o -o starling_validator_test  -lpthread 

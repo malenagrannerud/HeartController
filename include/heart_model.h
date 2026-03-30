@@ -4,14 +4,19 @@
 class HeartModel {
 private:
     float preload;
-    float phase;
+    float afterload;
+    float contractility;
     float heartRate;
     
 public:
     HeartModel();
     void update(float dt);
     float getInletPressure();
+    float getOutletPressure();
+    float getFlow();
     void setPreload(float p);
+    void setAfterload(float a);
+    void setHeartRate(float hr);
     float getHeartRate();
 };
 

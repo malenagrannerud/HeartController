@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/workspaces/HeartController/include
+CXX_INCLUDES = 
 
-CXX_FLAGS =  -Wall -Wextra -std=gnu++17
+CXX_FLAGS = -std=gnu++11
 

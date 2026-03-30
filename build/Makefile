@@ -65,16 +65,6 @@ CMAKE_BINARY_DIR = /workspaces/HeartController/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-.PHONY : test/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -139,91 +129,6 @@ heart_controller/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/build
 .PHONY : heart_controller/fast
 
-#=============================================================================
-# Target rules for targets named starling_validator_test
-
-# Build rule for target.
-starling_validator_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 starling_validator_test
-.PHONY : starling_validator_test
-
-# fast build rule for target.
-starling_validator_test/fast:
-	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/starling_validator_test.dir/build.make tests/CMakeFiles/starling_validator_test.dir/build
-.PHONY : starling_validator_test/fast
-
-src/display.o: src/display.cpp.o
-.PHONY : src/display.o
-
-# target to build an object file
-src/display.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/display.cpp.o
-.PHONY : src/display.cpp.o
-
-src/display.i: src/display.cpp.i
-.PHONY : src/display.i
-
-# target to preprocess a source file
-src/display.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/display.cpp.i
-.PHONY : src/display.cpp.i
-
-src/display.s: src/display.cpp.s
-.PHONY : src/display.s
-
-# target to generate assembly for a file
-src/display.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/display.cpp.s
-.PHONY : src/display.cpp.s
-
-src/frank_starling.o: src/frank_starling.cpp.o
-.PHONY : src/frank_starling.o
-
-# target to build an object file
-src/frank_starling.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/frank_starling.cpp.o
-.PHONY : src/frank_starling.cpp.o
-
-src/frank_starling.i: src/frank_starling.cpp.i
-.PHONY : src/frank_starling.i
-
-# target to preprocess a source file
-src/frank_starling.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/frank_starling.cpp.i
-.PHONY : src/frank_starling.cpp.i
-
-src/frank_starling.s: src/frank_starling.cpp.s
-.PHONY : src/frank_starling.s
-
-# target to generate assembly for a file
-src/frank_starling.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/frank_starling.cpp.s
-.PHONY : src/frank_starling.cpp.s
-
-src/heart_model.o: src/heart_model.cpp.o
-.PHONY : src/heart_model.o
-
-# target to build an object file
-src/heart_model.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/heart_model.cpp.o
-.PHONY : src/heart_model.cpp.o
-
-src/heart_model.i: src/heart_model.cpp.i
-.PHONY : src/heart_model.i
-
-# target to preprocess a source file
-src/heart_model.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/heart_model.cpp.i
-.PHONY : src/heart_model.cpp.i
-
-src/heart_model.s: src/heart_model.cpp.s
-.PHONY : src/heart_model.s
-
-# target to generate assembly for a file
-src/heart_model.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/heart_model.cpp.s
-.PHONY : src/heart_model.cpp.s
-
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -248,102 +153,6 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/motor_controller.o: src/motor_controller.cpp.o
-.PHONY : src/motor_controller.o
-
-# target to build an object file
-src/motor_controller.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/motor_controller.cpp.o
-.PHONY : src/motor_controller.cpp.o
-
-src/motor_controller.i: src/motor_controller.cpp.i
-.PHONY : src/motor_controller.i
-
-# target to preprocess a source file
-src/motor_controller.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/motor_controller.cpp.i
-.PHONY : src/motor_controller.cpp.i
-
-src/motor_controller.s: src/motor_controller.cpp.s
-.PHONY : src/motor_controller.s
-
-# target to generate assembly for a file
-src/motor_controller.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/motor_controller.cpp.s
-.PHONY : src/motor_controller.cpp.s
-
-src/pressure_converter.o: src/pressure_converter.cpp.o
-.PHONY : src/pressure_converter.o
-
-# target to build an object file
-src/pressure_converter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.o
-.PHONY : src/pressure_converter.cpp.o
-
-src/pressure_converter.i: src/pressure_converter.cpp.i
-.PHONY : src/pressure_converter.i
-
-# target to preprocess a source file
-src/pressure_converter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.i
-.PHONY : src/pressure_converter.cpp.i
-
-src/pressure_converter.s: src/pressure_converter.cpp.s
-.PHONY : src/pressure_converter.s
-
-# target to generate assembly for a file
-src/pressure_converter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/pressure_converter.cpp.s
-.PHONY : src/pressure_converter.cpp.s
-
-src/pressure_sensor.o: src/pressure_sensor.cpp.o
-.PHONY : src/pressure_sensor.o
-
-# target to build an object file
-src/pressure_sensor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.o
-.PHONY : src/pressure_sensor.cpp.o
-
-src/pressure_sensor.i: src/pressure_sensor.cpp.i
-.PHONY : src/pressure_sensor.i
-
-# target to preprocess a source file
-src/pressure_sensor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.i
-.PHONY : src/pressure_sensor.cpp.i
-
-src/pressure_sensor.s: src/pressure_sensor.cpp.s
-.PHONY : src/pressure_sensor.s
-
-# target to generate assembly for a file
-src/pressure_sensor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/pressure_sensor.cpp.s
-.PHONY : src/pressure_sensor.cpp.s
-
-src/starling_validator.o: src/starling_validator.cpp.o
-.PHONY : src/starling_validator.o
-
-# target to build an object file
-src/starling_validator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/starling_validator.cpp.o
-.PHONY : src/starling_validator.cpp.o
-
-src/starling_validator.i: src/starling_validator.cpp.i
-.PHONY : src/starling_validator.i
-
-# target to preprocess a source file
-src/starling_validator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/starling_validator.cpp.i
-.PHONY : src/starling_validator.cpp.i
-
-src/starling_validator.s: src/starling_validator.cpp.s
-.PHONY : src/starling_validator.s
-
-# target to generate assembly for a file
-src/starling_validator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/starling_validator.cpp.s
-.PHONY : src/starling_validator.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -352,33 +161,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... test"
 	@echo "... heart_controller"
-	@echo "... starling_validator_test"
-	@echo "... src/display.o"
-	@echo "... src/display.i"
-	@echo "... src/display.s"
-	@echo "... src/frank_starling.o"
-	@echo "... src/frank_starling.i"
-	@echo "... src/frank_starling.s"
-	@echo "... src/heart_model.o"
-	@echo "... src/heart_model.i"
-	@echo "... src/heart_model.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/motor_controller.o"
-	@echo "... src/motor_controller.i"
-	@echo "... src/motor_controller.s"
-	@echo "... src/pressure_converter.o"
-	@echo "... src/pressure_converter.i"
-	@echo "... src/pressure_converter.s"
-	@echo "... src/pressure_sensor.o"
-	@echo "... src/pressure_sensor.i"
-	@echo "... src/pressure_sensor.s"
-	@echo "... src/starling_validator.o"
-	@echo "... src/starling_validator.i"
-	@echo "... src/starling_validator.s"
 .PHONY : help
 
 
