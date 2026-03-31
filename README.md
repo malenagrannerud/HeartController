@@ -2,9 +2,12 @@
 
 ## Aim
 To model a system for a TAH to understand how 
-    i: HR (input by user), PAP (affects LAP) and AoP (affects RAP) interact  
+    i: HR (input by user)[1], PAP (affects LAP) and AoP (affects RAP) interact [2]  
     ii: how the Frank-Starling mechanism determines target pressures based on preload
     iii: how a display can show real-time data to users
+
+    [1] https://en.wikipedia.org/wiki/Frank%E2%80%93Starling_law
+    [2] https://pmc.ncbi.nlm.nih.gov/articles/PMC12625488/
 
 ## Overview
 HR  = Heart Rate (bpm) - user can adjust to simulate exercise or rest

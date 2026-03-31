@@ -1,3 +1,5 @@
+// Main simulation loop for TAH controller
+// Real-time heart simulation with Frank-Starling control
 
 #include "Constants.h"
 #include "PressureSensor.h"
@@ -61,18 +63,15 @@ int main() {
     
     Statistics stats;
     
-    // Sensors
     PressureSensor rapSensor(MAX_RV_PRESSURE);
     PressureSensor lapSensor(MAX_LV_PRESSURE);
     
-    // Pumps
     Motor rightPump(MAX_RV_PRESSURE);
     Motor leftPump(MAX_LV_PRESSURE);
     
     rightPump.initialize(DEFAULT_RPM_RV);
     leftPump.initialize(DEFAULT_RPM_LV);
     
-    // State variables
     float rap = DEFAULT_RAP;
     float lap = DEFAULT_LAP;
     
@@ -91,7 +90,7 @@ int main() {
     for (int i = 0; i < TOTAL_ITERATIONS && running; i++) {
         handleUserInput(heartRate, running);
         
-        // Read sensors (with noise)
+        // Read sensors with noise
         float measuredRAP = rapSensor.measure(rap);
         float measuredLAP = lapSensor.measure(lap);
         
@@ -137,7 +136,7 @@ int main() {
         this_thread::sleep_for(chrono::milliseconds(SLEEP_MS));
     }
     
-    // Print summary with all statistics
+    // Print summary with statistics
     printSummary(TOTAL_ITERATIONS,
                  stats.avg(stats.hr),
                  stats.avg(stats.rap),

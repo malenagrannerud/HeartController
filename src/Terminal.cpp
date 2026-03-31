@@ -1,4 +1,3 @@
-
 #include "Terminal.h"
 #include "Constants.h"
 #include <iostream>
@@ -60,12 +59,12 @@ void printHeader() {
     cout << "  [d] decrease heart rate\n";
     cout << "  [q] quit\n\n";
 
-    cout << "Time  HR        RAP PAPt PAPa  RPM  V Err        LAP AoPt AoPa  RPM  V Err\n";
+    cout << "Time  HR           RAP PAPt PAPa  RPM  V  Err        LAP AoPt AoPa  RPM  V  Err\n";
     cout << "--------------------------------------------------------------------------------------\n";
 }
 
 void printPulseMessage(float hr) {
-    cout << "      (((" << static_cast<int>(hr) << ")))\n";
+    cout << "    (((" << static_cast<int>(hr) << ")))\n";
 }
 
 void printDataRow(float time, float hr,
@@ -161,11 +160,16 @@ void printSummary(int count, float avgHR, float avgRAP, float avgLAP,
     bool aopNormal = (avgAoP >= 70.0f && avgAoP <= 100.0f);
     bool hrNormal = (avgHR >= 60.0f && avgHR <= 100.0f);
     
-    cout << "  " << (hrNormal ? "[OK]" : "[!!]") << " Heart Rate: " << static_cast<int>(avgHR + 0.5f) << " bpm\n";
-    cout << "  " << (rapNormal ? "[OK]" : "[!!]") << " Right Atrial Pressure: " << static_cast<int>(avgRAP + 0.5f) << " mmHg\n";
-    cout << "  " << (lapNormal ? "[OK]" : "[!!]") << " Left Atrial Pressure: " << static_cast<int>(avgLAP + 0.5f) << " mmHg\n";
-    cout << "  " << (papNormal ? "[OK]" : "[!!]") << " Pulmonary Artery Pressure: " << static_cast<int>(avgPAP + 0.5f) << " mmHg\n";
-    cout << "  " << (aopNormal ? "[OK]" : "[!!]") << " Aortic Pressure: " << static_cast<int>(avgAoP + 0.5f) << " mmHg\n";
+    cout << "  " << (hrNormal ? "[OK]" : "[!!]") << " Heart Rate: " 
+         << static_cast<int>(avgHR + 0.5f) << " bpm\n";
+    cout << "  " << (rapNormal ? "[OK]" : "[!!]") << " Right Atrial Pressure: " 
+         << static_cast<int>(avgRAP + 0.5f) << " mmHg\n";
+    cout << "  " << (lapNormal ? "[OK]" : "[!!]") << " Left Atrial Pressure: " 
+         << static_cast<int>(avgLAP + 0.5f) << " mmHg\n";
+    cout << "  " << (papNormal ? "[OK]" : "[!!]") << " Pulmonary Artery Pressure: " 
+         << static_cast<int>(avgPAP + 0.5f) << " mmHg\n";
+    cout << "  " << (aopNormal ? "[OK]" : "[!!]") << " Aortic Pressure: " 
+         << static_cast<int>(avgAoP + 0.5f) << " mmHg\n";
     
     cout << "\n";
     cout << "-------------------------------------------------------------------------------\n";
