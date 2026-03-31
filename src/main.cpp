@@ -1,3 +1,4 @@
+
 #include "Constants.h"
 #include "PressureSensor.h"
 #include "StarlingMechanism.h"
@@ -8,9 +9,48 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <vector>
+#include <algorithm>
+#include <numeric>
 
 using namespace std;
 using namespace Constants;
+
+struct Statistics {
+    vector<float> hr;
+    vector<float> rap;
+    vector<float> lap;
+    vector<float> pap;
+    vector<float> aop;
+    vector<float> errorRight;
+    vector<float> errorLeft;
+    
+    void add(float _hr, float _rap, float _lap, float _pap, float _aop, 
+             float _errR, float _errL) {
+        hr.push_back(_hr);
+        rap.push_back(_rap);
+        lap.push_back(_lap);
+        pap.push_back(_pap);
+        aop.push_back(_aop);
+        errorRight.push_back(_errR);
+        errorLeft.push_back(_errL);
+    }
+    
+    float avg(const vector<float>& v) {
+        if (v.empty()) return 0;
+        return accumulate(v.begin(), v.end(), 0.0f) / v.size();
+    }
+    
+    float minVal(const vector<float>& v) {
+        if (v.empty()) return 0;
+        return *min_element(v.begin(), v.end());
+    }
+    
+    float maxVal(const vector<float>& v) {
+        if (v.empty()) return 0;
+        return *max_element(v.begin(), v.end());
+    }
+};
 
 int main() {
     setupTerminal();
@@ -18,6 +58,8 @@ int main() {
     float heartRate = DEFAULT_HR;
     float simTime = 0.0f;
     bool running = true;
+    
+    Statistics stats;
     
     // Sensors
     PressureSensor rapSensor(MAX_RV_PRESSURE);
@@ -81,6 +123,9 @@ int main() {
         rap = calculateNewRAP(actualAoP, heartRate);
         lap = calculateNewLAP(actualPAP, heartRate);
         
+        // Collect statistics
+        stats.add(heartRate, measuredRAP, measuredLAP, actualPAP, actualAoP, errorRight, errorLeft);
+        
         // Display
         printDataRow(simTime, heartRate,
                      measuredRAP, targetPAP, actualPAP, 
@@ -92,7 +137,24 @@ int main() {
         this_thread::sleep_for(chrono::milliseconds(SLEEP_MS));
     }
     
-    printSummary(TOTAL_ITERATIONS);
+    // Print summary with all statistics
+    printSummary(TOTAL_ITERATIONS,
+                 stats.avg(stats.hr),
+                 stats.avg(stats.rap),
+                 stats.avg(stats.lap),
+                 stats.avg(stats.pap),
+                 stats.avg(stats.aop),
+                 stats.avg(stats.errorRight),
+                 stats.avg(stats.errorLeft),
+                 stats.minVal(stats.rap),
+                 stats.maxVal(stats.rap),
+                 stats.minVal(stats.lap),
+                 stats.maxVal(stats.lap),
+                 stats.minVal(stats.pap),
+                 stats.maxVal(stats.pap),
+                 stats.minVal(stats.aop),
+                 stats.maxVal(stats.aop));
+    
     restoreTerminal();
     
     return 0;
