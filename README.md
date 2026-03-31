@@ -36,8 +36,6 @@ To model a system for a TAH to understand how
 
 
 
-
-
                  ----------------------BODY----------------------------
                  ↑                                                     ↓
                  │ AoP (aorta)                                       ||||| Sensor1: RAP
