@@ -2,22 +2,37 @@
 
 ## Aim
 To model a system for a TAH to understand how 
-    i: HR (input by user)[1], PAP (affects LAP) and AoP (affects RAP) interact [2]  
-    ii: how the Frank-Starling mechanism determines target pressures based on preload
-    iii: how a display can show real-time data to users
+- heart rate (input by user), PAP (affects LAP) and AoP (affects RAP) interact [1]  
+- the Frank-Starling mechanism determines target pressures based on preload
+- a TAH display can show real-time data to users
 
-    [1] https://en.wikipedia.org/wiki/Frank%E2%80%93Starling_law
-    [2] https://pmc.ncbi.nlm.nih.gov/articles/PMC12625488/
+    [1] https://pmc.ncbi.nlm.nih.gov/articles/PMC12625488/
 
 ## Overview
-HR  = Heart Rate (bpm) - user can adjust to simulate exercise or rest
-RAP = Right Atrial Pressure (mmHg) - blood pressure entering right ventricle from body
-PAP = Pulmonary Artery Pressure (mmHg) - blood pressure exiting right ventricle to lungs
-LAP = Left Atrial Pressure (mmHg) - blood pressure entering left ventricle from lungs
-AoP = Aortic Pressure (mmHg) - blood pressure exiting left ventricle to body
+| Parameter | Description |
+|-----------|-------------|
+| HR | Heart Rate (bpm) - user can adjust to simulate exercise or rest |
+| RAP | Right Atrial Pressure (mmHg) - blood pressure entering right ventricle from body |
+| PAP | Pulmonary Artery Pressure (mmHg) - blood pressure exiting right ventricle to lungs |
+| LAP | Left Atrial Pressure (mmHg) - blood pressure entering left ventricle from lungs |
+| AoP | Aortic Pressure (mmHg) - blood pressure exiting left ventricle to body |
+| MCU | Microcontroller |
+| RPM | Revolutions Per Minute (pump speed) |
 
-MCU = MICROCONTROLLER
-RPM = Revolutions Per Minute (pump speed)
+### System Diagram
+
+----------------------BODY----------------------------
+↑                                                       ↓
+│ AoP (aorta) ||||| Sensor1: RAP
+┌─────────────┴─────────────-┐ ┌─────────────┴─────────────┐
+│ LEFT VENTRICLE │ │ RIGHT VENTRICLE │
+│ Pumps blood from lungs→body│ │ Pumps body → lungs │
+│ Motor2: follows setpoint │ │ Motor1: follows setpoint │
+└─────────────┬─────────────-┘ └─────────────┬─────────────┘
+            ||||| Sensor2: LAP ↓ PAP
+              ↑ ↓
+└───────────────────────LUNGS─────────────────────────┘
+
 
                  ----------------------BODY----------------------------
                  ↑                                                     ↓
