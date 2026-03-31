@@ -129,6 +129,126 @@ heart_controller/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/build
 .PHONY : heart_controller/fast
 
+src/CirculationModel.o: src/CirculationModel.cpp.o
+.PHONY : src/CirculationModel.o
+
+# target to build an object file
+src/CirculationModel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/CirculationModel.cpp.o
+.PHONY : src/CirculationModel.cpp.o
+
+src/CirculationModel.i: src/CirculationModel.cpp.i
+.PHONY : src/CirculationModel.i
+
+# target to preprocess a source file
+src/CirculationModel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/CirculationModel.cpp.i
+.PHONY : src/CirculationModel.cpp.i
+
+src/CirculationModel.s: src/CirculationModel.cpp.s
+.PHONY : src/CirculationModel.s
+
+# target to generate assembly for a file
+src/CirculationModel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/CirculationModel.cpp.s
+.PHONY : src/CirculationModel.cpp.s
+
+src/Motor.o: src/Motor.cpp.o
+.PHONY : src/Motor.o
+
+# target to build an object file
+src/Motor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Motor.cpp.o
+.PHONY : src/Motor.cpp.o
+
+src/Motor.i: src/Motor.cpp.i
+.PHONY : src/Motor.i
+
+# target to preprocess a source file
+src/Motor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Motor.cpp.i
+.PHONY : src/Motor.cpp.i
+
+src/Motor.s: src/Motor.cpp.s
+.PHONY : src/Motor.s
+
+# target to generate assembly for a file
+src/Motor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Motor.cpp.s
+.PHONY : src/Motor.cpp.s
+
+src/PressureSensor.o: src/PressureSensor.cpp.o
+.PHONY : src/PressureSensor.o
+
+# target to build an object file
+src/PressureSensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/PressureSensor.cpp.o
+.PHONY : src/PressureSensor.cpp.o
+
+src/PressureSensor.i: src/PressureSensor.cpp.i
+.PHONY : src/PressureSensor.i
+
+# target to preprocess a source file
+src/PressureSensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/PressureSensor.cpp.i
+.PHONY : src/PressureSensor.cpp.i
+
+src/PressureSensor.s: src/PressureSensor.cpp.s
+.PHONY : src/PressureSensor.s
+
+# target to generate assembly for a file
+src/PressureSensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/PressureSensor.cpp.s
+.PHONY : src/PressureSensor.cpp.s
+
+src/StarlingMechanism.o: src/StarlingMechanism.cpp.o
+.PHONY : src/StarlingMechanism.o
+
+# target to build an object file
+src/StarlingMechanism.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/StarlingMechanism.cpp.o
+.PHONY : src/StarlingMechanism.cpp.o
+
+src/StarlingMechanism.i: src/StarlingMechanism.cpp.i
+.PHONY : src/StarlingMechanism.i
+
+# target to preprocess a source file
+src/StarlingMechanism.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/StarlingMechanism.cpp.i
+.PHONY : src/StarlingMechanism.cpp.i
+
+src/StarlingMechanism.s: src/StarlingMechanism.cpp.s
+.PHONY : src/StarlingMechanism.s
+
+# target to generate assembly for a file
+src/StarlingMechanism.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/StarlingMechanism.cpp.s
+.PHONY : src/StarlingMechanism.cpp.s
+
+src/Terminal.o: src/Terminal.cpp.o
+.PHONY : src/Terminal.o
+
+# target to build an object file
+src/Terminal.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Terminal.cpp.o
+.PHONY : src/Terminal.cpp.o
+
+src/Terminal.i: src/Terminal.cpp.i
+.PHONY : src/Terminal.i
+
+# target to preprocess a source file
+src/Terminal.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Terminal.cpp.i
+.PHONY : src/Terminal.cpp.i
+
+src/Terminal.s: src/Terminal.cpp.s
+.PHONY : src/Terminal.s
+
+# target to generate assembly for a file
+src/Terminal.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Terminal.cpp.s
+.PHONY : src/Terminal.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -162,6 +282,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... heart_controller"
+	@echo "... src/CirculationModel.o"
+	@echo "... src/CirculationModel.i"
+	@echo "... src/CirculationModel.s"
+	@echo "... src/Motor.o"
+	@echo "... src/Motor.i"
+	@echo "... src/Motor.s"
+	@echo "... src/PressureSensor.o"
+	@echo "... src/PressureSensor.i"
+	@echo "... src/PressureSensor.s"
+	@echo "... src/StarlingMechanism.o"
+	@echo "... src/StarlingMechanism.i"
+	@echo "... src/StarlingMechanism.s"
+	@echo "... src/Terminal.o"
+	@echo "... src/Terminal.i"
+	@echo "... src/Terminal.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

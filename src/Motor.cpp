@@ -1,21 +1,76 @@
-#include "../include/motor_controller.h"
+#include "Motor.h"
+#include "Constants.h"
 #include <algorithm>
+#include <cmath>
 
-MotorController::MotorController() : targetPressure(0), currentPressure(0), currentRPM(0), maxRPM(4720) {}
+Motor::Motor(float maxPressure)
+    : m_maxPressure(maxPressure)
+    , m_maxRPM(Constants::MOTOR_MAX_RPM)
+    , m_maxVoltage(Constants::MOTOR_MAX_VOLTAGE)
+    , m_tau(Constants::TAU)
+    , m_setpointRPM(0.0f)
+    , m_currentRPM(0.0f)
+    , m_currentVoltage(0.0f) {}
 
-void MotorController::setTargetPressure(float p) {
-    targetPressure = std::max(0.0f, std::min(40.0f, p));
+void Motor::initialize(float defaultRPM) {
+    m_currentRPM = defaultRPM;
+    m_setpointRPM = defaultRPM;
+    m_currentVoltage = rpmToVoltage(m_currentRPM);
 }
 
-void MotorController::update(float dt) {
-    float diff = targetPressure - currentPressure;
-    currentPressure += diff * dt * 10;
-    currentRPM = (currentPressure / 40.0f) * maxRPM;
+float Motor::pressureToRPM(float pressure) const {
+    float normalizedPressure = pressure / m_maxPressure;
+    float rpm = std::sqrt(normalizedPressure) * m_maxRPM;
+    return std::max(0.0f, std::min(m_maxRPM, rpm));
 }
 
-float MotorController::getCurrentPressure() { return currentPressure; }
-float MotorController::getCurrentRPM() { return currentRPM; }
-float MotorController::getCurrentDraw() { 
-    float load = currentPressure / 40.0f;
-    return 500 + load * load * 2000;
+float Motor::rpmToPressure(float rpm) const {
+    float normalizedRPM = rpm / m_maxRPM;
+    float pressure = m_maxPressure * normalizedRPM * normalizedRPM;
+    return std::min(m_maxPressure, pressure);
+}
+
+float Motor::rpmToVoltage(float rpm) const {
+    return (rpm / m_maxRPM) * m_maxVoltage;
+}
+
+void Motor::setTargetPressure(float targetPressure) {
+    m_setpointRPM = pressureToRPM(targetPressure);
+}
+
+float Motor::getSetpointRPM() const { 
+    return m_setpointRPM; 
+}
+
+float Motor::getSetpointVoltage() const { 
+    return rpmToVoltage(m_setpointRPM); 
+}
+
+void Motor::update(float dt) {
+    float diff = m_setpointRPM - m_currentRPM;
+    float gain = dt / m_tau;
+    m_currentRPM += diff * gain;
+    m_currentRPM = std::max(0.0f, std::min(m_maxRPM, m_currentRPM));
+    m_currentVoltage = rpmToVoltage(m_currentRPM);
+}
+
+float Motor::getActualPressure() const { 
+    return rpmToPressure(m_currentRPM); 
+}
+
+float Motor::getActualRPM() const { 
+    return m_currentRPM; 
+}
+
+float Motor::getActualVoltage() const { 
+    return m_currentVoltage; 
+}
+
+void Motor::reduceSpeed(float reductionFactor) {
+    m_setpointRPM *= reductionFactor;
+    m_currentRPM *= reductionFactor;
+}
+
+float Motor::getMaxPressure() const { 
+    return m_maxPressure; 
 }

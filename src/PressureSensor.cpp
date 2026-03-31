@@ -1,12 +1,20 @@
-#include "../include/pressure_converter.h"
+#include "PressureSensor.h"
+#include "Constants.h"
+#include <random>
 #include <algorithm>
 
-double PressureConverter::pressureToVoltage(double pressure) {
-    pressure = std::max(0.0, std::min(40.0, pressure));
-    return ZERO_VOLTAGE + pressure * SENSITIVITY;
+PressureSensor::PressureSensor(float maxPressure) 
+    : m_maxPressure(maxPressure) {}
+
+float PressureSensor::measure(float truePressure) {
+    static std::random_device rd;
+    static std::default_random_engine gen(rd());
+    static std::normal_distribution<float> noise(0, Constants::SENSOR_NOISE_LEVEL);
+    
+    float noisyPressure = truePressure + noise(gen);
+    return std::max(0.0f, std::min(m_maxPressure, noisyPressure));
 }
 
-double PressureConverter::voltageToPressure(double voltage) {
-    voltage = std::max(ZERO_VOLTAGE, std::min(MAX_VOLTAGE, voltage));
-    return (voltage - ZERO_VOLTAGE) / SENSITIVITY;
+float PressureSensor::pressureToVoltage(float pressure) const {
+    return Constants::SENSOR_CALIBRATION_ZERO + pressure * Constants::SENSOR_VOLTAGE_PER_MMHG;
 }
