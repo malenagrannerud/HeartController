@@ -73,15 +73,15 @@ CMakeFiles/heart_controller.dir/src/main.cpp.o: CMakeFiles/heart_controller.dir/
 CMakeFiles/heart_controller.dir/src/main.cpp.o: /workspaces/HeartController/src/main.cpp
 CMakeFiles/heart_controller.dir/src/main.cpp.o: CMakeFiles/heart_controller.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/heart_controller.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/main.cpp.o -MF CMakeFiles/heart_controller.dir/src/main.cpp.o.d -o CMakeFiles/heart_controller.dir/src/main.cpp.o -c /workspaces/HeartController/src/main.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/heart_controller.dir/src/main.cpp.o -MF CMakeFiles/heart_controller.dir/src/main.cpp.o.d -o CMakeFiles/heart_controller.dir/src/main.cpp.o -c /workspaces/HeartController/src/main.cpp
 
 CMakeFiles/heart_controller.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/heart_controller.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/main.cpp > CMakeFiles/heart_controller.dir/src/main.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/HeartController/src/main.cpp > CMakeFiles/heart_controller.dir/src/main.cpp.i
 
 CMakeFiles/heart_controller.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/heart_controller.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/main.cpp -o CMakeFiles/heart_controller.dir/src/main.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/HeartController/src/main.cpp -o CMakeFiles/heart_controller.dir/src/main.cpp.s
 
 # Object files for target heart_controller
 heart_controller_OBJECTS = \

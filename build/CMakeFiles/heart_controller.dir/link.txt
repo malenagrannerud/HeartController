@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/heart_controller.dir/src/main.cpp.o -o heart_controller  -lpthread 
+/usr/bin/g++ -g CMakeFiles/heart_controller.dir/src/main.cpp.o -o heart_controller  -lpthread 
