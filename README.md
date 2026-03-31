@@ -31,10 +31,13 @@ The system simulates a Total Artificial Heart (TAH) with:
 5. Display real-time data and collect statistics
 
 ## Controls
-s	Start simulation
-u	Increase heart rate
-d	Decrease heart rate
-q	Quit
+
+| Key | Action |
+|-----|--------|
+| s | Start simulation |
+| u | Increase heart rate |
+| d | Decrease heart rate |
+| q | Quit |
 
 
 ## Build and Run
