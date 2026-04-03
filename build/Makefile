@@ -129,78 +129,6 @@ heart_controller/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/build
 .PHONY : heart_controller/fast
 
-src/PressureSensor.o: src/PressureSensor.cpp.o
-.PHONY : src/PressureSensor.o
-
-# target to build an object file
-src/PressureSensor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/PressureSensor.cpp.o
-.PHONY : src/PressureSensor.cpp.o
-
-src/PressureSensor.i: src/PressureSensor.cpp.i
-.PHONY : src/PressureSensor.i
-
-# target to preprocess a source file
-src/PressureSensor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/PressureSensor.cpp.i
-.PHONY : src/PressureSensor.cpp.i
-
-src/PressureSensor.s: src/PressureSensor.cpp.s
-.PHONY : src/PressureSensor.s
-
-# target to generate assembly for a file
-src/PressureSensor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/PressureSensor.cpp.s
-.PHONY : src/PressureSensor.cpp.s
-
-src/StarlingMechanism.o: src/StarlingMechanism.cpp.o
-.PHONY : src/StarlingMechanism.o
-
-# target to build an object file
-src/StarlingMechanism.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/StarlingMechanism.cpp.o
-.PHONY : src/StarlingMechanism.cpp.o
-
-src/StarlingMechanism.i: src/StarlingMechanism.cpp.i
-.PHONY : src/StarlingMechanism.i
-
-# target to preprocess a source file
-src/StarlingMechanism.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/StarlingMechanism.cpp.i
-.PHONY : src/StarlingMechanism.cpp.i
-
-src/StarlingMechanism.s: src/StarlingMechanism.cpp.s
-.PHONY : src/StarlingMechanism.s
-
-# target to generate assembly for a file
-src/StarlingMechanism.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/StarlingMechanism.cpp.s
-.PHONY : src/StarlingMechanism.cpp.s
-
-src/Terminal.o: src/Terminal.cpp.o
-.PHONY : src/Terminal.o
-
-# target to build an object file
-src/Terminal.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Terminal.cpp.o
-.PHONY : src/Terminal.cpp.o
-
-src/Terminal.i: src/Terminal.cpp.i
-.PHONY : src/Terminal.i
-
-# target to preprocess a source file
-src/Terminal.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Terminal.cpp.i
-.PHONY : src/Terminal.cpp.i
-
-src/Terminal.s: src/Terminal.cpp.s
-.PHONY : src/Terminal.s
-
-# target to generate assembly for a file
-src/Terminal.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/Terminal.cpp.s
-.PHONY : src/Terminal.cpp.s
-
 src/controller/Simulation.o: src/controller/Simulation.cpp.o
 .PHONY : src/controller/Simulation.o
 
@@ -345,30 +273,6 @@ src/model/StarlingCurve.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/model/StarlingCurve.cpp.s
 .PHONY : src/model/StarlingCurve.cpp.s
 
-src/model/Statistics.o: src/model/Statistics.cpp.o
-.PHONY : src/model/Statistics.o
-
-# target to build an object file
-src/model/Statistics.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/model/Statistics.cpp.o
-.PHONY : src/model/Statistics.cpp.o
-
-src/model/Statistics.i: src/model/Statistics.cpp.i
-.PHONY : src/model/Statistics.i
-
-# target to preprocess a source file
-src/model/Statistics.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/model/Statistics.cpp.i
-.PHONY : src/model/Statistics.cpp.i
-
-src/model/Statistics.s: src/model/Statistics.cpp.s
-.PHONY : src/model/Statistics.s
-
-# target to generate assembly for a file
-src/model/Statistics.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heart_controller.dir/build.make CMakeFiles/heart_controller.dir/src/model/Statistics.cpp.s
-.PHONY : src/model/Statistics.cpp.s
-
 src/view/Terminal.o: src/view/Terminal.cpp.o
 .PHONY : src/view/Terminal.o
 
@@ -402,15 +306,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... heart_controller"
-	@echo "... src/PressureSensor.o"
-	@echo "... src/PressureSensor.i"
-	@echo "... src/PressureSensor.s"
-	@echo "... src/StarlingMechanism.o"
-	@echo "... src/StarlingMechanism.i"
-	@echo "... src/StarlingMechanism.s"
-	@echo "... src/Terminal.o"
-	@echo "... src/Terminal.i"
-	@echo "... src/Terminal.s"
 	@echo "... src/controller/Simulation.o"
 	@echo "... src/controller/Simulation.i"
 	@echo "... src/controller/Simulation.s"
@@ -429,9 +324,6 @@ help:
 	@echo "... src/model/StarlingCurve.o"
 	@echo "... src/model/StarlingCurve.i"
 	@echo "... src/model/StarlingCurve.s"
-	@echo "... src/model/Statistics.o"
-	@echo "... src/model/Statistics.i"
-	@echo "... src/model/Statistics.s"
 	@echo "... src/view/Terminal.o"
 	@echo "... src/view/Terminal.i"
 	@echo "... src/view/Terminal.s"

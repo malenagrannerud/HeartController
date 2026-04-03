@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/workspaces/HeartController/src/model -I/workspaces/HeartController/src/view -I/workspaces/HeartController/src/controller
+CXX_INCLUDES = -I/workspaces/HeartController/include -I/workspaces/HeartController/include/model -I/workspaces/HeartController/include/view -I/workspaces/HeartController/include/controller -I/workspaces/HeartController/src -I/workspaces/HeartController/src/model -I/workspaces/HeartController/src/view -I/workspaces/HeartController/src/controller
 
 CXX_FLAGS = -std=gnu++17
 

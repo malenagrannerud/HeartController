@@ -4,7 +4,7 @@
  * @brief Entry point for TAH simulation
  */
 
-#include "controller/Simulation.h"
+#include "Simulation.h"
 
 int main() {
     Simulation sim;
