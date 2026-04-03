@@ -29,6 +29,7 @@ TAHs are designed to emulate the Frank-Starling law of the heart, which is the i
 Understanding how RAP, PAP, LAP, and AoP interact [2] helps engineers design better TAH controllers that mimic the body's natural autoregulation. This simulation demonstrates that a simple piecewise linear Starling curve combined with first-order motor dynamics can achieve stable physiological regulation.
 
 [1] https://en.wikipedia.org/wiki/Frank%E2%80%93Starling_law
+
 [2] https://pmc.ncbi.nlm.nih.gov/articles/PMC12625488/
 
 ### Aim
