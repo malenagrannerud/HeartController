@@ -16,11 +16,11 @@ public:
 private:
     void handleUserInput();
     
-    float m_heartRate;
-    float m_simTime;
+    int m_heartRate;
+    int m_simTime;
     bool m_running;
-    float m_rap;
-    float m_lap;
+    int m_rap;
+    int m_lap;
     
     PressureSensor m_rapSensor;
     PressureSensor m_lapSensor;
@@ -30,11 +30,11 @@ private:
     StarlingCurve m_starlingLV;
     
     struct Stats {
-        std::vector<float> hr, rap, lap, pap, aop, errR, errL;
-        void add(float h, float r, float la, float p, float a, float er, float el);
-        float avg(const std::vector<float>& v);
-        float min(const std::vector<float>& v);
-        float max(const std::vector<float>& v);
+        std::vector<int> hr, rap, lap, pap, aop, errR, errL;
+        void add(int h, int r, int la, int p, int a, int er, int el);
+        int avg(const std::vector<int>& v);
+        int min(const std::vector<int>& v);
+        int max(const std::vector<int>& v);
     } m_stats;
 };
 

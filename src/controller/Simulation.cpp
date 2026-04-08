@@ -10,30 +10,30 @@ static constexpr int DEFAULT_HR = 72;
 static constexpr int MIN_HR = 40;
 static constexpr int MAX_HR = 180;
 static constexpr int HR_STEP = 5;
-static constexpr float MAX_RV_PRESSURE = 40.0f;
-static constexpr float MAX_LV_PRESSURE = 120.0f;
-static constexpr float DEFAULT_RAP = 4.0f;
-static constexpr float DEFAULT_LAP = 9.0f;
-static constexpr float SUCTION_THRESHOLD = 2.0f;
+static constexpr int MAX_RV_PRESSURE = 40;
+static constexpr int MAX_LV_PRESSURE = 120;
+static constexpr int DEFAULT_RAP = 4;
+static constexpr int DEFAULT_LAP = 9;
+static constexpr int SUCTION_THRESHOLD = 2;
 static constexpr int DT_MS = 50;
 static constexpr int SIM_DURATION_SEC = 20;
 static constexpr int TOTAL_ITERATIONS = SIM_DURATION_SEC * 1000 / DT_MS;
 static constexpr int SLEEP_MS = 50;
 
-void Simulation::Stats::add(float h, float r, float la, float p, float a, float er, float el) {
+void Simulation::Stats::add(int h, int r, int la, int p, int a, int er, int el) {
     hr.push_back(h); rap.push_back(r); lap.push_back(la);
     pap.push_back(p); aop.push_back(a); errR.push_back(er); errL.push_back(el);
 }
 
-float Simulation::Stats::avg(const std::vector<float>& v) {
-    return v.empty() ? 0 : std::accumulate(v.begin(), v.end(), 0.0f) / v.size();
+int Simulation::Stats::avg(const std::vector<int>& v) {
+    return v.empty() ? 0 : std::accumulate(v.begin(), v.end(), 0) / v.size();
 }
 
-float Simulation::Stats::min(const std::vector<float>& v) {
+int Simulation::Stats::min(const std::vector<int>& v) {
     return v.empty() ? 0 : *std::min_element(v.begin(), v.end());
 }
 
-float Simulation::Stats::max(const std::vector<float>& v) {
+int Simulation::Stats::max(const std::vector<int>& v) {
     return v.empty() ? 0 : *std::max_element(v.begin(), v.end());
 }
 
@@ -79,28 +79,28 @@ void Simulation::run() {
     }
     
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    float dt = DT_MS / 1000.0f;
+    int dt = DT_MS / 1000;
     
     for (int i = 0; i < TOTAL_ITERATIONS && m_running; i++) {
         handleUserInput();
         
-        float measuredRAP = m_rapSensor.measure(m_rap);
-        float measuredLAP = m_lapSensor.measure(m_lap);
+        int measuredRAP = m_rapSensor.measure(m_rap);
+        int measuredLAP = m_lapSensor.measure(m_lap);
         
-        float targetPAP = m_starlingRV.evaluate(measuredRAP);
+        int targetPAP = m_starlingRV.evaluate(measuredRAP);
         m_rightPump.setTargetPressure(targetPAP);
         m_rightPump.update(dt);
-        float actualPAP = m_rightPump.getActualPressure();
-        float errorRight = targetPAP - actualPAP;
+        int actualPAP = m_rightPump.getActualPressure();
+        int errorRight = targetPAP - actualPAP;
         
-        float targetAoP = m_starlingLV.evaluate(measuredLAP);
+        int targetAoP = m_starlingLV.evaluate(measuredLAP);
         m_leftPump.setTargetPressure(targetAoP);
         m_leftPump.update(dt);
-        float actualAoP = m_leftPump.getActualPressure();
-        float errorLeft = targetAoP - actualAoP;
+        int actualAoP = m_leftPump.getActualPressure();
+        int errorLeft = targetAoP - actualAoP;
         
-        if (measuredRAP < SUCTION_THRESHOLD) m_rightPump.reduceSpeed(0.8f);
-        if (measuredLAP < SUCTION_THRESHOLD) m_leftPump.reduceSpeed(0.8f);
+        if (measuredRAP < SUCTION_THRESHOLD) m_rightPump.reduceSpeed(0.8);
+        if (measuredLAP < SUCTION_THRESHOLD) m_leftPump.reduceSpeed(0.8);
         
         m_rap = calculateNewRAP(actualAoP, m_heartRate);
         m_lap = calculateNewLAP(actualPAP, m_heartRate);
@@ -128,3 +128,6 @@ void Simulation::run() {
     
     restoreTerminal();
 }
+
+
+
