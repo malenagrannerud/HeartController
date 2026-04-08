@@ -45,6 +45,9 @@ The system simulates a TAH with:
 - **Two motors**: Follow setpoints based on Frank-Starling mechanism
 - **User input**: Adjust heart rate (u/d) to simulate exercise/rest
 
+<img width="1030" height="770" alt="Skärmavbild 2026-04-08 kl  14 12 52" src="https://github.com/user-attachments/assets/6118589e-115d-4843-adf9-d1715f6f13f0" />
+
+
 ### Control Loop (One micro controller unit)
 1. Read sensors (RAP, LAP) with simulated noise
 2. Calculate target pressures using Frank-Starling curves
@@ -86,11 +89,6 @@ The project follows an MVC-like architecture:
 
 
 ## RESULT
-
-
-
-
-
 Column Descriptions
 
 - Time - simulation time in seconds
@@ -111,20 +109,20 @@ Column Descriptions
 
 ## FUTURE IMPROVEMENTS
 ### High priority
-- Add unit tests using Google Test
-- Replace manual terminal I/O with input validation and error handling
-- Add configuration file support (JSON or YAML) for simulation parameters
-
-### Medium priority
-- Add system diagrams
-- Plot Starling curves using Python or gnuplot
-- Performance optimization: latency, throughput, real-time profiling
-
-### Lower priority
+- Plot Starling curves using Python
+- Plot heart curves
+- Add input validation and error handling  to manual terminal I/O
 - Validate simulation results against real patient data
+  
+### Medium priority
+- Performance optimization: latency, throughput, real-time profiling
+- Set up CI/CD pipeline
+- Add configuration file support
+  
+### Lower priority
 - Replace terminal UI with a graphical interface (Qt)
 - Add logging to file for post-simulation analysis
-- Apply medical device standards (IEC 62304, ISO 13485)
+- Medical device standards (IEC 62304, ISO 13485, ISO 14971)
 
 
 
