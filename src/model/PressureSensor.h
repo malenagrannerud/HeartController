@@ -13,9 +13,9 @@
 class PressureSensor {
 public:
     // ========== Sensor Constants ==========
-    static constexpr float CALIBRATION_ZERO = 0.093f;     // Voltage at 0 mmHg (V)
-    static constexpr float VOLTAGE_PER_MMHG = 0.0097f;    // Voltage increase per mmHg (V/mmHg)
-    static constexpr float NOISE_LEVEL = 0.05f;           // Standard deviation of noise (mmHg)
+    static constexpr float CALIBRATION_ZERO = 0.5f;     // Voltage at 0 mmHg (V)
+    static constexpr float VOLTAGE_PER_MMHG = 0.02f;    
+    static constexpr float NOISE_LEVEL = 0.5f;       // Standard deviation of noise ± 0.5 mmHg
     
     explicit PressureSensor(float maxPressure);
     float measure(float truePressure);

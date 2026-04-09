@@ -109,8 +109,7 @@ Column Descriptions
 
 ## FUTURE IMPROVEMENTS
 ### High priority
-- Plot Starling curves using Python
-- Plot heart curves
+- Validate classes
 - Add input validation and error handling  to manual terminal I/O
 - Validate simulation results against real patient data
   

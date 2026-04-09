@@ -2,11 +2,11 @@
 #include <algorithm>
 
 std::vector<std::pair<float, float>> StarlingCurve::getDefaultRVPoints() {
-    return {{0,0}, {2,12}, {6,22}, {12,35}};
+    return {{0,5}, {2,17}, {8,32}, {15,45}};
 }
 
 std::vector<std::pair<float, float>> StarlingCurve::getDefaultLVPoints() {
-    return {{0,0}, {5,70}, {12,100}, {20,120}};
+    return {{0,40}, {6,110}, {13,155}, {20,180}};
 }
 
 StarlingCurve::StarlingCurve(const std::vector<std::pair<float, float>>& points) : m_breakpoints(points) {

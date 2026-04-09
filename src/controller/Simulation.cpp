@@ -6,14 +6,20 @@
 #include <numeric>
 #include <algorithm>
 
-static constexpr int DEFAULT_HR = 72;
+static constexpr int DEFAULT_HR = 72;  // Is later determined by user input 
+static constexpr int DEFAULT_RAP = 4; // Vid RAP=4 mmHg → target PAP = 22 mmHg
+static constexpr int DEFAULT_LAP = 9; // Vid LAP=9 mmHg → target AoP = 87 mmHg
+
+static constexpr int DEFAULT_PAP = 22;
+static constexpr int DEFAULT_AOP = 87;
+
+
 static constexpr int MIN_HR = 40;
 static constexpr int MAX_HR = 180;
 static constexpr int HR_STEP = 5;
 static constexpr int MAX_RV_PRESSURE = 40;
 static constexpr int MAX_LV_PRESSURE = 120;
-static constexpr int DEFAULT_RAP = 4;
-static constexpr int DEFAULT_LAP = 9;
+
 static constexpr int SUCTION_THRESHOLD = 2;
 static constexpr int DT_MS = 50;
 static constexpr int SIM_DURATION_SEC = 20;
@@ -21,15 +27,20 @@ static constexpr int TOTAL_ITERATIONS = SIM_DURATION_SEC * 1000 / DT_MS;
 static constexpr int SLEEP_MS = 50;
 
 Simulation::Simulation()
-    : m_heartRate(DEFAULT_HR), m_simTime(0), m_running(true),
-      m_rap(DEFAULT_RAP), m_lap(DEFAULT_LAP),
-      m_rapSensor(MAX_RV_PRESSURE), m_lapSensor(MAX_LV_PRESSURE),
-      m_rightPump(MAX_RV_PRESSURE), m_leftPump(MAX_LV_PRESSURE),
+    : m_heartRate(DEFAULT_HR), 
+      m_simTime(0), 
+      m_running(true),
+      m_rap(DEFAULT_RAP),
+      m_lap(DEFAULT_LAP),
+      m_rapSensor(MAX_RV_PRESSURE), 
+      m_lapSensor(MAX_LV_PRESSURE),
+      m_rightPump(MAX_RV_PRESSURE),
+      m_leftPump(MAX_LV_PRESSURE),
       m_starlingRV(StarlingCurve::getDefaultRVPoints()),
       m_starlingLV(StarlingCurve::getDefaultLVPoints()) {
     
-    float defaultRPM_RV = Motor::MAX_RPM * std::sqrt(22.0f / MAX_RV_PRESSURE);
-    float defaultRPM_LV = Motor::MAX_RPM * std::sqrt(87.0f / MAX_LV_PRESSURE);
+    float defaultRPM_RV = Motor::MAX_RPM * std::sqrt(DEFAULT_PAP / MAX_RV_PRESSURE);
+    float defaultRPM_LV = Motor::MAX_RPM * std::sqrt(DEFAULT_AOP / MAX_LV_PRESSURE);
     m_rightPump.initialize(defaultRPM_RV);
     m_leftPump.initialize(defaultRPM_LV);
 }
@@ -85,8 +96,8 @@ void Simulation::run() {
         if (measuredRAP < SUCTION_THRESHOLD) m_rightPump.reduceSpeed(0.8);
         if (measuredLAP < SUCTION_THRESHOLD) m_leftPump.reduceSpeed(0.8);
         
-        m_rap = calculateNewRAP(actualAoP, m_heartRate);
-        m_lap = calculateNewLAP(actualPAP, m_heartRate);
+        m_rap = updateTrueRAP(actualAoP, m_heartRate);
+        m_lap = updateTrueLAP(actualPAP, m_heartRate);
         
         m_stats.record(m_heartRate, measuredRAP, measuredLAP, actualPAP, actualAoP, errorRight, errorLeft);
         

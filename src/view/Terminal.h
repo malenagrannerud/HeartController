@@ -17,9 +17,9 @@ bool keyPressed();
 char getKey();
 void printHeader();
 void printDataRow(float time, float hr,
-                  float rap, float papTarget, float papActual, 
+                  float rap, float papTrue, float papSensor, 
                   float rpmRight, float vRight, float errorRight,
-                  float lap, float aopTarget, float aopActual, 
+                  float lap, float aopTrue, float aopSensor, 
                   float rpmLeft, float vLeft, float errorLeft);
 void printSummary(int count, float avgHR, float avgRAP, float avgLAP,
                   float avgPAP, float avgAoP, float avgErrorRight, float avgErrorLeft,
