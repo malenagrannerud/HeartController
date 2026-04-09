@@ -1,3 +1,13 @@
+
+
+/**
+ * @file Terminal.h
+ * @brief Terminal I/O handling for TAH simulation (View layer)
+ * @author Malena Grannerud
+ */
+
+
+
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
@@ -19,3 +29,4 @@ void printPulseMessage(float hr);
 char waitForStart();
 
 #endif
+

@@ -1,18 +1,29 @@
+/**
+ * @file CirculationModel.cpp
+ * @brief Implementation of circulation dynamics for preload based control
+ * Models how RAP and LAP change in response to actual AoP and PAP
+
+
 
 #include "CirculationModel.h"
 #include <algorithm>
 
-// Circulation constants
 constexpr float DEFAULT_RAP = 4.0f;
-constexpr float DEFAULT_LAP = 9.0f;
-constexpr float DEFAULT_HR = 72.0f;
 constexpr float MIN_RAP = 2.0f;
-constexpr float MAX_RAP = 12.0f;
-constexpr float MIN_LAP = 5.0f;
+constexpr float MAX_RAP = 15.0f;
+
+
+constexpr float DEFAULT_LAP = 9.0f;
+constexpr float MIN_LAP = 6.0f;
 constexpr float MAX_LAP = 20.0f;
+
+constexpr float DEFAULT_HR = 72.0f;
+
 constexpr float AOP_EFFECT_ON_RAP = 0.05f;
 constexpr float PAP_EFFECT_ON_LAP = 0.08f;
 constexpr float HR_EFFECT_ON_VENOUS_RETURN = 0.05f;
+
+
 
 float calculateNewRAP(float actualAoP, float heartRate) {
     float aopEffect = actualAoP * AOP_EFFECT_ON_RAP;

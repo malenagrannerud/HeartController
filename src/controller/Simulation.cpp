@@ -20,23 +20,6 @@ static constexpr int SIM_DURATION_SEC = 20;
 static constexpr int TOTAL_ITERATIONS = SIM_DURATION_SEC * 1000 / DT_MS;
 static constexpr int SLEEP_MS = 50;
 
-void Simulation::Stats::add(int h, int r, int la, int p, int a, int er, int el) {
-    hr.push_back(h); rap.push_back(r); lap.push_back(la);
-    pap.push_back(p); aop.push_back(a); errR.push_back(er); errL.push_back(el);
-}
-
-int Simulation::Stats::avg(const std::vector<int>& v) {
-    return v.empty() ? 0 : std::accumulate(v.begin(), v.end(), 0) / v.size();
-}
-
-int Simulation::Stats::min(const std::vector<int>& v) {
-    return v.empty() ? 0 : *std::min_element(v.begin(), v.end());
-}
-
-int Simulation::Stats::max(const std::vector<int>& v) {
-    return v.empty() ? 0 : *std::max_element(v.begin(), v.end());
-}
-
 Simulation::Simulation()
     : m_heartRate(DEFAULT_HR), m_simTime(0), m_running(true),
       m_rap(DEFAULT_RAP), m_lap(DEFAULT_LAP),
@@ -105,7 +88,7 @@ void Simulation::run() {
         m_rap = calculateNewRAP(actualAoP, m_heartRate);
         m_lap = calculateNewLAP(actualPAP, m_heartRate);
         
-        m_stats.add(m_heartRate, measuredRAP, measuredLAP, actualPAP, actualAoP, errorRight, errorLeft);
+        m_stats.record(m_heartRate, measuredRAP, measuredLAP, actualPAP, actualAoP, errorRight, errorLeft);
         
         printDataRow(m_simTime, m_heartRate,
                      measuredRAP, targetPAP, actualPAP,
@@ -117,17 +100,22 @@ void Simulation::run() {
         std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_MS));
     }
     
-    printSummary(TOTAL_ITERATIONS,
-                 m_stats.avg(m_stats.hr), m_stats.avg(m_stats.rap), m_stats.avg(m_stats.lap),
-                 m_stats.avg(m_stats.pap), m_stats.avg(m_stats.aop),
-                 m_stats.avg(m_stats.errR), m_stats.avg(m_stats.errL),
-                 m_stats.min(m_stats.rap), m_stats.max(m_stats.rap),
-                 m_stats.min(m_stats.lap), m_stats.max(m_stats.lap),
-                 m_stats.min(m_stats.pap), m_stats.max(m_stats.pap),
-                 m_stats.min(m_stats.aop), m_stats.max(m_stats.aop));
+    printSummary(m_stats.getCount(),
+                 m_stats.avgHR(),
+                 m_stats.avgRAP(),
+                 m_stats.avgLAP(),
+                 m_stats.avgPAP(),
+                 m_stats.avgAoP(),
+                 m_stats.avgErrorRight(),
+                 m_stats.avgErrorLeft(),
+                 m_stats.minRAP(),
+                 m_stats.maxRAP(),
+                 m_stats.minLAP(),
+                 m_stats.maxLAP(),
+                 m_stats.minPAP(),
+                 m_stats.maxPAP(),
+                 m_stats.minAoP(),
+                 m_stats.maxAoP());
     
     restoreTerminal();
 }
-
-
-
