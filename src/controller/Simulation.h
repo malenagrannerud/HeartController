@@ -30,7 +30,8 @@
  * - Collects statistics and displays data in real-time
  * 
  * The control loop executes every 50 milliseconds:
- * 1. Read pressure sensors (RAP, LAP)
+ * 0. Calculate trueRAP and trueLAP using the circulation model
+ * 1. Read pressure sensors (RAP, LAP), by taking trueRAP and trueLAP and adding noise
  * 2. Calculate target pressures using Starling curves
  * 3. Update motor speeds (first-order dynamics)
  * 4. Update circulation model based on actual pressures
