@@ -2,19 +2,19 @@
 #include <algorithm>
 #include <cmath>
 
-Motor::Motor(float maxPressure)
+Motor::Motor(int maxPressure)
     : m_maxPressure(maxPressure)
-    , m_setpointRPM(0.0f)
-    , m_currentRPM(0.0f)
-    , m_currentVoltage(0.0f) {}
+    , m_setpointRPM(0)
+    , m_currentRPM(0)
+    , m_currentVoltage(0) {}
 
-void Motor::initialize(float defaultRPM) {
+void Motor::initialize(int defaultRPM) {
     m_currentRPM = defaultRPM;
     m_setpointRPM = defaultRPM;
     m_currentVoltage = rpmToVoltage(m_currentRPM);
 }
 
-float Motor::pressureToRPM(float pressure) const {
+float Motor::pressureToRPM(int pressure) const {
     float normalizedPressure = pressure / m_maxPressure;
     float rpm = std::sqrt(normalizedPressure) * MAX_RPM;
     return std::max(0.0f, std::min(MAX_RPM, rpm));

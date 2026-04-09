@@ -4,21 +4,28 @@ project(HeartController)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Threads REQUIRED)
-
-file(GLOB_RECURSE SOURCES "src/*.cpp")
-
-add_executable(heart_controller ${SOURCES})
-
-target_include_directories(heart_controller PRIVATE 
-    include
-    include/model
-    include/view
-    include/controller
-    src
-    src/model
-    src/view
-    src/controller
+# Include directories
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/controller
+    ${CMAKE_SOURCE_DIR}/src/model
+    ${CMAKE_SOURCE_DIR}/src/view
 )
 
-target_link_libraries(heart_controller Threads::Threads)
+# Source files
+set(SOURCES
+    src/main.cpp
+    src/controller/Simulation.cpp
+    src/model/Motor.cpp
+    src/model/PressureSensor.cpp
+    src/model/StarlingCurve.cpp
+    src/model/CirculationModel.cpp
+    src/model/Statistics.cpp
+    src/view/Terminal.cpp
+)
+
+# Create executable
+add_executable(HeartController ${SOURCES})
+
+# Link libraries
+target_link_libraries(HeartController pthread)

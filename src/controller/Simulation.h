@@ -1,3 +1,9 @@
+/**
+ * @file Simulation.h
+ * @brief Main controller class for TAH simulation
+ * @author Malena Grannerud
+ */
+
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
@@ -5,9 +11,19 @@
 #include "model/Motor.h"
 #include "model/StarlingCurve.h"
 #include "model/CirculationModel.h"
+#include "model/Statistics.h"
 #include "view/Terminal.h"
-#include <vector>
 
+/**
+ * @class Simulation
+ * @brief Controller coordinating Model and View in MVC architecture
+ * 
+ * Handles:
+ * - User input (heart rate changes, quit)
+ * - Model component coordination (sensors, pumps, curves, circulation)
+ * - Main simulation loop timing
+ * - Statistics collection
+ */
 class Simulation {
 public:
     Simulation();
@@ -29,13 +45,7 @@ private:
     StarlingCurve m_starlingRV;
     StarlingCurve m_starlingLV;
     
-    struct Stats {
-        std::vector<int> hr, rap, lap, pap, aop, errR, errL;
-        void add(int h, int r, int la, int p, int a, int er, int el);
-        int avg(const std::vector<int>& v);
-        int min(const std::vector<int>& v);
-        int max(const std::vector<int>& v);
-    } m_stats;
+    Statistics m_stats;
 };
 
 #endif

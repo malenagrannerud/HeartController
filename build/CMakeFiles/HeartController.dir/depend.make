@@ -1,2 +1,2 @@
-# Empty dependencies file for heart_controller.
+# Empty dependencies file for HeartController.
 # This may be replaced when dependencies are built.
