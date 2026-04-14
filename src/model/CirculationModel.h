@@ -1,11 +1,12 @@
 /**
  @file CirculationModel.h
- @brief Models how the circulation system responds to changes 
- in output pressures and HR. Models the "body" of the patient
+ @brief Models how the circulation system ("body" of the patient) responds to changes 
+ in 1) AOP or PAP and 2) HR. 
 
- Calculates the signals the pressuresensors will measure: true RAP and LAP
- 
- Since no variables need to be stored, a set of functions is ok
+ Calculates the signals the pressure sensors will measure: true RAP and LAP
+
+ This is a collection of stateless functions and static variables.
+ No state (variables) --> no need for a class. Pure mathematical transformations.
  */
 
 #ifndef CIRCULATIONMODEL_H

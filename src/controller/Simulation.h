@@ -23,6 +23,29 @@
  * - Model component coordination (sensors, pumps, curves, circulation)
  * - Main simulation loop timing
  * - Statistics collection
+
+
+
+
+
+
+
+
+Mät fyllnadstryck (RAP, LAP)
+        ↓
+Bestäm måltryck (Starling-kurva)
+        ↓
+Pumpar försöker nå måltryck: setpointPAP, setpointAoP
+        ↓
+Mät vad pumparna faktiskt levererade (PAP, AoP)
+        ↓
+Kroppen reagerar → nya fyllnadstryck (RAP, LAP)
+        ↓
+Upprepa (sluten loop)
+
+
+
+
  */
 class Simulation {
 public:
