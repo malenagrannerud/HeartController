@@ -1,42 +1,39 @@
 /**
- * @file CirculationModel.cpp
- * @brief Implementation of circulation dynamics for preload based control
- * Models how RAP and LAP change in response to actual AoP and PAP
+ @file CirculationModel.cpp
 
-
+*/
 
 #include "CirculationModel.h"
 #include <algorithm>
 
-constexpr float DEFAULT_RAP = 4.0f;
-constexpr float MIN_RAP = 2.0f;
-constexpr float MAX_RAP = 15.0f;
-
-
-constexpr float DEFAULT_LAP = 9.0f;
-constexpr float MIN_LAP = 6.0f;
-constexpr float MAX_LAP = 20.0f;
-
 constexpr float DEFAULT_HR = 72.0f;
+constexpr float DEFAULT_RAP = 4.0f;
+constexpr float DEFAULT_LAP = 9.0f;
 
-constexpr float AOP_EFFECT_ON_RAP = 0.05f;
-constexpr float PAP_EFFECT_ON_LAP = 0.08f;
-constexpr float HR_EFFECT_ON_VENOUS_RETURN = 0.05f;
+constexpr float MIN_RAP = 0.0f;     // <2 is patological, but we allow it to go to 0 for testing and extreme cases
+constexpr float MAX_RAP = 30.0f;    // >15 is patological, but we allow it to go higher for testing and extreme cases
+
+constexpr float MIN_LAP = 0.0f;     // <6 patological, but allowed here 0 for testing and extreme cases
+constexpr float MAX_LAP = 40.0f;    // >25 patological, but allowed here 0 for testing and extreme cases
+
+constexpr float AOP_EFFECTS_RAP = 0.05f;
+constexpr float PAP_EFFECTS_LAP = 0.08f;
+constexpr float HR_EFFECTS_RAP_OR_LAP = 0.05f;
 
 
 
-float calculateNewRAP(float actualAoP, float heartRate) {
-    float aopEffect = actualAoP * AOP_EFFECT_ON_RAP;
+float calculateNewRAP(float actualAoP, float HR) {
+    float aopEffect = actualAoP * AOP_EFFECTS_RAP;
     float rap = DEFAULT_RAP - aopEffect;
     rap = std::max(MIN_RAP, std::min(MAX_RAP, rap));
-    rap += (heartRate - DEFAULT_HR) * HR_EFFECT_ON_VENOUS_RETURN;
+    rap += (HR - DEFAULT_HR) * HR_EFFECTS_RAP_OR_LAP;
     return rap;
 }
 
-float calculateNewLAP(float actualPAP, float heartRate) {
-    float papEffect = actualPAP * PAP_EFFECT_ON_LAP;
+float calculateNewLAP(float actualPAP, float HR) {
+    float papEffect = actualPAP * PAP_EFFECTS_LAP;
     float lap = DEFAULT_LAP - papEffect;
     lap = std::max(MIN_LAP, std::min(MAX_LAP, lap));
-    lap += (heartRate - DEFAULT_HR) * HR_EFFECT_ON_VENOUS_RETURN;
+    lap += (HR - DEFAULT_HR) * HR_EFFECTS_RAP_OR_LAP;
     return lap;
 }
