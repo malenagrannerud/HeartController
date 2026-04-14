@@ -1,51 +1,31 @@
-# ============================================================================
-# CMake configuration for Heart Controller Simulation
-# ============================================================================
-
 cmake_minimum_required(VERSION 3.10)
 project(HeartController)
 
-# ============================================================================
-# Compiler settings
-# ============================================================================
-
-# Use C++17 standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# ============================================================================
-# Threading support (required for terminal input)
-# ============================================================================
+# Include directories
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/controller
+    ${CMAKE_SOURCE_DIR}/src/model
+    ${CMAKE_SOURCE_DIR}/src/view
+)
 
-set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
-find_package(Threads REQUIRED)
-
-# ============================================================================
 # Source files
-# ============================================================================
-
-# Find all .cpp files in src directory
-file(GLOB SOURCES "src/*.cpp")
+set(SOURCES
+    src/main.cpp
+    src/controller/Simulation.cpp
+    src/model/Motor.cpp
+    src/model/PressureSensor.cpp
+    src/model/StarlingCurve.cpp
+    src/model/CirculationModel.cpp
+    src/model/Statistics.cpp
+    src/view/Terminal.cpp
+)
 
 # Create executable
-add_executable(heart_controller ${SOURCES})
+add_executable(HeartController ${SOURCES})
 
-# ============================================================================
-# Include directories
-# ============================================================================
-
-# Add include directory for header files
-target_include_directories(heart_controller PRIVATE include)
-
-# ============================================================================
 # Link libraries
-# ============================================================================
-
-# Link with pthread (required for termios and select)
-target_link_libraries(heart_controller Threads::Threads)
-
-# ============================================================================
-# Optional compiler warnings (uncomment if desired)
-# ============================================================================
-
-# target_compile_options(heart_controller PRIVATE -Wall -Wextra)
+target_link_libraries(HeartController pthread)

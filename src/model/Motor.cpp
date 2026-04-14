@@ -1,37 +1,33 @@
 #include "Motor.h"
-#include "Constants.h"
 #include <algorithm>
 #include <cmath>
 
-Motor::Motor(float maxPressure)
+Motor::Motor(int maxPressure)
     : m_maxPressure(maxPressure)
-    , m_maxRPM(Constants::MOTOR_MAX_RPM)
-    , m_maxVoltage(Constants::MOTOR_MAX_VOLTAGE)
-    , m_tau(Constants::TAU)
-    , m_setpointRPM(0.0f)
-    , m_currentRPM(0.0f)
-    , m_currentVoltage(0.0f) {}
+    , m_setpointRPM(0)
+    , m_currentRPM(0)
+    , m_currentVoltage(0) {}
 
-void Motor::initialize(float defaultRPM) {
+void Motor::initialize(int defaultRPM) {
     m_currentRPM = defaultRPM;
     m_setpointRPM = defaultRPM;
     m_currentVoltage = rpmToVoltage(m_currentRPM);
 }
 
-float Motor::pressureToRPM(float pressure) const {
+float Motor::pressureToRPM(int pressure) const {
     float normalizedPressure = pressure / m_maxPressure;
-    float rpm = std::sqrt(normalizedPressure) * m_maxRPM;
-    return std::max(0.0f, std::min(m_maxRPM, rpm));
+    float rpm = std::sqrt(normalizedPressure) * MAX_RPM;
+    return std::max(0.0f, std::min(MAX_RPM, rpm));
 }
 
 float Motor::rpmToPressure(float rpm) const {
-    float normalizedRPM = rpm / m_maxRPM;
+    float normalizedRPM = rpm / MAX_RPM;
     float pressure = m_maxPressure * normalizedRPM * normalizedRPM;
     return std::min(m_maxPressure, pressure);
 }
 
 float Motor::rpmToVoltage(float rpm) const {
-    return (rpm / m_maxRPM) * m_maxVoltage;
+    return (rpm / MAX_RPM) * MAX_VOLTAGE;
 }
 
 void Motor::setTargetPressure(float targetPressure) {
@@ -48,9 +44,9 @@ float Motor::getSetpointVoltage() const {
 
 void Motor::update(float dt) {
     float diff = m_setpointRPM - m_currentRPM;
-    float gain = dt / m_tau;
+    float gain = dt / TAU;
     m_currentRPM += diff * gain;
-    m_currentRPM = std::max(0.0f, std::min(m_maxRPM, m_currentRPM));
+    m_currentRPM = std::max(0.0f, std::min(MAX_RPM, m_currentRPM));
     m_currentVoltage = rpmToVoltage(m_currentRPM);
 }
 
