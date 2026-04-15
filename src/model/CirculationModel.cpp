@@ -1,39 +1,66 @@
-/**
- @file CirculationModel.cpp
-
-*/
-
 #include "CirculationModel.h"
 #include <algorithm>
+#include <cmath>
 
-constexpr float DEFAULT_HR = 72.0f;
-constexpr float DEFAULT_RAP = 4.0f;
-constexpr float DEFAULT_LAP = 9.0f;
-
-constexpr float MIN_RAP = 0.0f;     // <2 is patological, but we allow it to go to 0 for testing and extreme cases
-constexpr float MAX_RAP = 30.0f;    // >15 is patological, but we allow it to go higher for testing and extreme cases
-
-constexpr float MIN_LAP = 0.0f;     // <6 patological, but allowed here 0 for testing and extreme cases
-constexpr float MAX_LAP = 40.0f;    // >25 patological, but allowed here 0 for testing and extreme cases
-
-constexpr float AOP_EFFECTS_RAP = 0.02f;   // If AoP rises → 2 mmHg minskning i RAP
-constexpr float PAP_EFFECTS_LAP = 0.03f;   // 30 mmHg PAP → 0.9 mmHg minskning i LAP
-constexpr float HR_EFFECTS_RAP_OR_LAP = 0.05f;  // 50 bpm ökning → 2.5 mmHg ökning
-
-
-
-float updateRAP(float actualAoP, float HR) {
-    float aopEffect = actualAoP * AOP_EFFECTS_RAP;
-    float rap = DEFAULT_RAP - aopEffect;
-    rap = std::max(MIN_RAP, std::min(MAX_RAP, rap));
-    rap += (HR - DEFAULT_HR) * HR_EFFECTS_RAP_OR_LAP;
-    return rap;
+CirculationModel::CirculationModel()
+    : m_hr(DEFAULT_HR)
+    , m_rap(DEFAULT_RAP)
+    , m_lap(DEFAULT_LAP)
+    , m_pap(DEFAULT_PAP)
+    , m_aop(DEFAULT_AOP) {
 }
 
-float updateLAP(float actualPAP, float HR) {
-    float papEffect = actualPAP * PAP_EFFECTS_LAP;
-    float lap = DEFAULT_LAP - papEffect;
-    lap = std::max(MIN_LAP, std::min(MAX_LAP, lap));
-    lap += (HR - DEFAULT_HR) * HR_EFFECTS_RAP_OR_LAP;
-    return lap;
+void CirculationModel::reset() {
+    m_hr = DEFAULT_HR;
+    m_rap = DEFAULT_RAP;
+    m_lap = DEFAULT_LAP;
+    m_pap = DEFAULT_PAP;
+    m_aop = DEFAULT_AOP;
+}
+
+void CirculationModel::update(float hr, float actualPAP, float actualAoP) {
+    m_hr = hr;
+    m_pap = actualPAP;
+    m_aop = actualAoP;
+    
+    float hrEffect = (m_hr - DEFAULT_HR) * HR_EFFECT_ON_PRELOAD;
+    
+    float aopEffect = m_aop * AOP_EFFECT_ON_RAP;
+    m_rap = DEFAULT_RAP - aopEffect + hrEffect;
+    m_rap = clamp(m_rap, MIN_RAP, MAX_RAP);
+    
+    float papEffect = m_pap * PAP_EFFECT_ON_LAP;
+    m_lap = DEFAULT_LAP - papEffect + hrEffect;
+    m_lap = clamp(m_lap, MIN_LAP, MAX_LAP);
+}
+
+float CirculationModel::clamp(float value, float min, float max) const {
+    return std::max(min, std::min(max, value));
+}
+
+float CirculationModel::getRAP() const { return m_rap; }
+float CirculationModel::getLAP() const { return m_lap; }
+float CirculationModel::getPAP() const { return m_pap; }
+float CirculationModel::getAoP() const { return m_aop; }
+
+float CirculationModel::getCO_RV() const {
+    // CO = (PAP / PVR) * 80
+    return (m_pap * 80.0f) / PULMONARY_RESISTANCE;
+}
+
+float CirculationModel::getCO_LV() const {
+    // CO = (AoP / SVR) * 80
+    return (m_aop * 80.0f) / SYSTEMIC_RESISTANCE;
+}
+
+float CirculationModel::getCO() const {
+    return (getCO_RV() + getCO_LV()) / 2.0f;
+}
+
+float CirculationModel::getBalance() const {
+    float coLV = getCO_LV();
+    if (coLV > 0) {
+        return getCO_RV() / coLV;
+    }
+    return 1.0f;
 }

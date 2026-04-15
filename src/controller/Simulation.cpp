@@ -1,37 +1,27 @@
 #include "Simulation.h"
-#include <cmath>
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include <numeric>
-#include <algorithm>
-
-static constexpr int DEFAULT_HR = 72;
-static constexpr int MIN_HR = 40;
-static constexpr int MAX_HR = 180;
-static constexpr int HR_STEP = 5;
-static constexpr int MAX_RV_PRESSURE = 40;
-static constexpr int MAX_LV_PRESSURE = 120;
-static constexpr int DEFAULT_RAP = 4;
-static constexpr int DEFAULT_LAP = 9;
-static constexpr int SUCTION_THRESHOLD = 2;
-static constexpr int DT_MS = 50;
-static constexpr int SIM_DURATION_SEC = 20;
-static constexpr int TOTAL_ITERATIONS = SIM_DURATION_SEC * 1000 / DT_MS;
-static constexpr int SLEEP_MS = 50;
+#include <cmath>
 
 Simulation::Simulation()
-    : m_heartRate(DEFAULT_HR), m_simTime(0), m_running(true),
-      m_rap(DEFAULT_RAP), m_lap(DEFAULT_LAP),
-      m_rapSensor(MAX_RV_PRESSURE), m_lapSensor(MAX_LV_PRESSURE),
-      m_rightPump(MAX_RV_PRESSURE), m_leftPump(MAX_LV_PRESSURE),
-      m_starlingRV(StarlingCurve::getDefaultRVPoints()),
-      m_starlingLV(StarlingCurve::getDefaultLVPoints()) {
+    : m_heartRate(DEFAULT_HR)
+    , m_simTime(0)
+    , m_running(true)
+    , m_circulation()
+    , m_rapSensor(MAX_RV_PRESSURE)
+    , m_lapSensor(MAX_LV_PRESSURE)
+    , m_rightPump(MAX_RV_PRESSURE)
+    , m_leftPump(MAX_LV_PRESSURE)
+    , m_starlingRV(StarlingCurve::getDefaultRVPoints())
+    , m_starlingLV(StarlingCurve::getDefaultLVPoints())
+    , m_stats() {
     
     float defaultRPM_RV = Motor::MAX_RPM * std::sqrt(22.0f / MAX_RV_PRESSURE);
     float defaultRPM_LV = Motor::MAX_RPM * std::sqrt(87.0f / MAX_LV_PRESSURE);
     m_rightPump.initialize(defaultRPM_RV);
     m_leftPump.initialize(defaultRPM_LV);
+    m_circulation.reset();
 }
 
 void Simulation::handleUserInput() {
@@ -57,65 +47,77 @@ void Simulation::run() {
     
     if (waitForStart() == 'q') {
         restoreTerminal();
-        std::cout << "Simulation aborted.\n";
         return;
     }
     
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    int dt = DT_MS / 1000;
+    float dt = static_cast<float>(DT_MS) / 1000.0f;
     
-    for (int i = 0; i < TOTAL_ITERATIONS && m_running; i++) {
+    for (int i = 0; i < TOTAL_ITERATIONS && m_running; ++i) {
         handleUserInput();
         
-        int measuredRAP = m_rapSensor.measure(m_rap);
-        int measuredLAP = m_lapSensor.measure(m_lap);
+        float trueRAP = m_circulation.getRAP();
+        float trueLAP = m_circulation.getLAP();
+        float measuredRAP = m_rapSensor.measure(trueRAP);
+        float measuredLAP = m_lapSensor.measure(trueLAP);
         
-        int targetPAP = m_starlingRV.evaluate(measuredRAP);
+        float targetPAP = m_starlingRV.evaluate(measuredRAP);
+        float targetAoP = m_starlingLV.evaluate(measuredLAP);
+        
         m_rightPump.setTargetPressure(targetPAP);
         m_rightPump.update(dt);
-        int actualPAP = m_rightPump.getActualPressure();
-        int errorRight = targetPAP - actualPAP;
+        float actualPAP = m_rightPump.getActualPressure();
+        float errorRight = targetPAP - actualPAP;
         
-        int targetAoP = m_starlingLV.evaluate(measuredLAP);
         m_leftPump.setTargetPressure(targetAoP);
         m_leftPump.update(dt);
-        int actualAoP = m_leftPump.getActualPressure();
-        int errorLeft = targetAoP - actualAoP;
+        float actualAoP = m_leftPump.getActualPressure();
+        float errorLeft = targetAoP - actualAoP;
         
-        if (measuredRAP < SUCTION_THRESHOLD) m_rightPump.reduceSpeed(0.8);
-        if (measuredLAP < SUCTION_THRESHOLD) m_leftPump.reduceSpeed(0.8);
+        if (measuredRAP < SUCTION_THRESHOLD) m_rightPump.reduceSpeed(0.8f);
+        if (measuredLAP < SUCTION_THRESHOLD) m_leftPump.reduceSpeed(0.8f);
         
-        m_rap = calculateNewRAP(actualAoP, m_heartRate);
-        m_lap = calculateNewLAP(actualPAP, m_heartRate);
+        m_circulation.update(static_cast<float>(m_heartRate), actualPAP, actualAoP);
         
-        m_stats.record(m_heartRate, measuredRAP, measuredLAP, actualPAP, actualAoP, errorRight, errorLeft);
+        m_stats.record(m_heartRate,
+                      static_cast<int>(measuredRAP), static_cast<int>(measuredLAP),
+                      static_cast<int>(actualPAP), static_cast<int>(actualAoP),
+                      static_cast<int>(errorRight), static_cast<int>(errorLeft));
         
-        printDataRow(m_simTime, m_heartRate,
-                     measuredRAP, targetPAP, actualPAP,
-                     m_rightPump.getSetpointRPM(), m_rightPump.getActualVoltage(), errorRight,
-                     measuredLAP, targetAoP, actualAoP,
-                     m_leftPump.getSetpointRPM(), m_leftPump.getActualVoltage(), errorLeft);
+        const char* alarm = "OK";
+        if (m_circulation.getRAP() < SUCTION_THRESHOLD) alarm = "*** SUCTION RV! ***";
+        else if (m_circulation.getLAP() < SUCTION_THRESHOLD) alarm = "*** SUCTION LV! ***";
         
-        m_simTime += dt;
+        // Ersätt printDataRow-anropet med:
+printDataRow(
+    static_cast<float>(m_simTime),
+    static_cast<float>(m_heartRate),
+    m_circulation.getCO_RV(),
+    m_circulation.getCO_LV(),
+    m_circulation.getBalance(),
+    m_circulation.getRAP(), m_circulation.getPAP(),
+    m_rightPump.getSetpointRPM(), m_rightPump.getActualVoltage(), errorRight,
+    m_circulation.getLAP(), m_circulation.getAoP(),
+    m_leftPump.getSetpointRPM(), m_leftPump.getActualVoltage(), errorLeft,
+    alarm
+);
+        
+        m_simTime += static_cast<int>(dt);
         std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_MS));
     }
     
-    printSummary(m_stats.getCount(),
-                 m_stats.avgHR(),
-                 m_stats.avgRAP(),
-                 m_stats.avgLAP(),
-                 m_stats.avgPAP(),
-                 m_stats.avgAoP(),
-                 m_stats.avgErrorRight(),
-                 m_stats.avgErrorLeft(),
-                 m_stats.minRAP(),
-                 m_stats.maxRAP(),
-                 m_stats.minLAP(),
-                 m_stats.maxLAP(),
-                 m_stats.minPAP(),
-                 m_stats.maxPAP(),
-                 m_stats.minAoP(),
-                 m_stats.maxAoP());
+    printSummary(
+    m_stats.getCount(),
+    static_cast<float>(m_stats.avgHR()), 
+    m_circulation.getCO(),
+    m_circulation.getBalance(),
+    static_cast<float>(m_stats.avgRAP()), static_cast<float>(m_stats.avgPAP()),
+    static_cast<float>(m_stats.avgLAP()), static_cast<float>(m_stats.avgAoP()),
+    static_cast<float>(m_stats.minRAP()), static_cast<float>(m_stats.maxRAP()),
+    static_cast<float>(m_stats.minPAP()), static_cast<float>(m_stats.maxPAP()),
+    static_cast<float>(m_stats.minLAP()), static_cast<float>(m_stats.maxLAP()),
+    static_cast<float>(m_stats.minAoP()), static_cast<float>(m_stats.maxAoP()),
+    static_cast<float>(m_stats.avgErrorRight()), static_cast<float>(m_stats.avgErrorLeft())
+);
     
     restoreTerminal();
 }

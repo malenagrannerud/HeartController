@@ -8,12 +8,6 @@
 
 #include <vector>
 
-/**
- * @class Statistics
- * @brief Model component for data collection and statistical analysis
- * 
- * Stores time-series data and provides average, min, max for each parameter.
- */
 class Statistics {
 public:
     void record(int heartRate, int rap, int lap, int pap, int aop, int errorRight, int errorLeft);

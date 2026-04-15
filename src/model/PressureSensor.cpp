@@ -2,8 +2,7 @@
 #include <random>
 #include <algorithm>
 
-PressureSensor::PressureSensor(float maxPressure) 
-    : m_maxPressure(maxPressure) {}
+PressureSensor::PressureSensor(float maxPressure) : m_maxPressure(maxPressure) {}
 
 float PressureSensor::measure(float truePressure) {
     static std::random_device rd;

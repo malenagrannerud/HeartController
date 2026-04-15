@@ -1,90 +1,171 @@
 /**
  * @file test_circulation.cpp
- * @brief Unit tests for CirculationModel
- * 
- * Compile and run: g++ -std=c++17 test_circulation.cpp -o test_circulation && ./test_circulation
+ * @brief Unit tests for CirculationModel class
  */
 
-#include <iostream>
+#include "../src/model/CirculationModel.h"
 #include <cassert>
+#include <iostream>
+#include <cmath>
 
-// Constants from CirculationModel.cpp - JUSTERADE TILL RIMLIGA VÄRDEN
-constexpr float DEFAULT_HR = 72.0f;
-constexpr float DEFAULT_RAP = 4.0f;
-constexpr float DEFAULT_LAP = 9.0f;
+#define TEST(name) void name()
+#define ASSERT_NEAR(a, b, eps) assert(std::abs((a) - (b)) < (eps))
+#define ASSERT_TRUE(cond) assert(cond)
+#define ASSERT_GT(a, b) assert((a) > (b))
+#define ASSERT_LT(a, b) assert((a) < (b))
 
-constexpr float MIN_RAP = 0.0f;     // Allow 0 for extreme cases
-constexpr float MAX_RAP = 30.0f;    // Allow higher for extreme cases
-
-constexpr float MIN_LAP = 0.0f;     // Allow 0 for extreme cases
-constexpr float MAX_LAP = 40.0f;    // Allow higher for extreme cases
-
-// JUSTERADE: Rimligare kopplingskoefficienter
-constexpr float AOP_EFFECTS_RAP = 0.02f;   
-constexpr float PAP_EFFECTS_LAP = 0.03f;   
-constexpr float HR_EFFECTS_RAP_OR_LAP = 0.05f;  
-
-float updateRAP(float actualAoP, float HR) {
-    float aopEffect = actualAoP * AOP_EFFECTS_RAP;
-    float rap = DEFAULT_RAP - aopEffect;
-    if (rap < MIN_RAP) rap = MIN_RAP;
-    if (rap > MAX_RAP) rap = MAX_RAP;
-    rap += (HR - DEFAULT_HR) * HR_EFFECTS_RAP_OR_LAP;
-    return rap;
+TEST(test_default_initialization) {
+    CirculationModel model;
+    
+    // Default values should be physiological
+    ASSERT_NEAR(model.getHR(), 72.0f, 0.1f);
+    ASSERT_NEAR(model.getRAP(), 6.0f, 1.0f);
+    ASSERT_NEAR(model.getLAP(), 10.0f, 1.0f);
+    ASSERT_NEAR(model.getAoP(), 90.0f, 10.0f);
+    ASSERT_NEAR(model.getPAP(), 15.0f, 5.0f);
+    ASSERT_NEAR(model.getCO(), 5.0f, 1.0f);
+    
+    std::cout << "✓ Default initialization correct\n";
 }
 
-float updateLAP(float actualPAP, float HR) {
-    float papEffect = actualPAP * PAP_EFFECTS_LAP;
-    float lap = DEFAULT_LAP - papEffect;
-    if (lap < MIN_LAP) lap = MIN_LAP;
-    if (lap > MAX_LAP) lap = MAX_LAP;
-    lap += (HR - DEFAULT_HR) * HR_EFFECTS_RAP_OR_LAP;
-    return lap;
+TEST(test_reset_function) {
+    CirculationModel model;
+    
+    // Change state
+    model.update(120.0f);
+    
+    // Reset
+    model.reset();
+    
+    // Should be back to defaults
+    ASSERT_NEAR(model.getHR(), 72.0f, 0.1f);
+    ASSERT_NEAR(model.getRAP(), 6.0f, 1.0f);
+    ASSERT_NEAR(model.getLAP(), 10.0f, 1.0f);
+    
+    std::cout << "✓ Reset function works\n";
+}
+
+TEST(test_hr_increases_co) {
+    CirculationModel model;
+    model.reset();
+    
+    float co_baseline = model.getCO();
+    
+    // Increase HR
+    model.update(120.0f);
+    float co_increased = model.getCO();
+    
+    ASSERT_GT(co_increased, co_baseline);
+    
+    std::cout << "✓ Higher HR increases cardiac output\n";
+}
+
+TEST(test_series_circulation_balance) {
+    CirculationModel model;
+    model.reset();
+    
+    // After several updates, RV and LV should balance
+    for (int i = 0; i < 10; ++i) {
+        model.update(72.0f);
+    }
+    
+    float svRV = model.getRVStrokeVolume();
+    float svLV = model.getLVStrokeVolume();
+    float sv = model.getSV();
+    
+    // Effective SV should be min of RV and LV
+    ASSERT_NEAR(sv, std::min(svRV, svLV), 0.1f);
+    
+    std::cout << "✓ Series circulation balance maintained\n";
+}
+
+TEST(test_preload_limits) {
+    CirculationModel model;
+    
+    // Run many updates to see if preload stays within limits
+    for (int i = 0; i < 100; ++i) {
+        model.update(72.0f);
+        float rap = model.getRAP();
+        float lap = model.getLAP();
+        
+        ASSERT_TRUE(rap >= 1.0f && rap <= 25.0f);
+        ASSERT_TRUE(lap >= 2.0f && lap <= 35.0f);
+    }
+    
+    std::cout << "✓ Preload stays within physiological limits\n";
+}
+
+TEST(test_hr_clamping) {
+    CirculationModel model;
+    
+    // Test below minimum
+    model.update(20.0f);
+    ASSERT_NEAR(model.getHR(), 40.0f, 0.1f);
+    
+    // Test above maximum
+    model.update(200.0f);
+    ASSERT_NEAR(model.getHR(), 180.0f, 0.1f);
+    
+    std::cout << "✓ HR clamped to valid range\n";
+}
+
+TEST(test_steady_state) {
+    CirculationModel model;
+    model.reset();
+    
+    float prev_co = model.getCO();
+    bool reached_steady_state = false;
+    
+    // Run until steady state or max iterations
+    for (int i = 0; i < 50; ++i) {
+        model.update(72.0f);
+        float current_co = model.getCO();
+        
+        if (std::abs(current_co - prev_co) < 0.01f) {
+            reached_steady_state = true;
+            break;
+        }
+        prev_co = current_co;
+    }
+    
+    ASSERT_TRUE(reached_steady_state);
+    
+    std::cout << "✓ System reaches steady state\n";
+}
+
+TEST(test_pressure_flow_relationship) {
+    CirculationModel model;
+    model.reset();
+    
+    model.update(72.0f);
+    
+    float co = model.getCO();
+    float aop = model.getAoP();
+    float pap = model.getPAP();
+    
+    // Pressure should be proportional to flow (approximately)
+    // AoP/CO should be roughly constant (systemic resistance)
+    float systemic_ratio = aop / co;
+    float pulmonary_ratio = pap / co;
+    
+    ASSERT_TRUE(systemic_ratio > 10.0f && systemic_ratio < 20.0f);
+    ASSERT_TRUE(pulmonary_ratio > 1.0f && pulmonary_ratio < 5.0f);
+    
+    std::cout << "✓ Pressure-flow relationship correct\n";
 }
 
 int main() {
-    std::cout << "\n========== CIRCULATION MODEL TESTS ==========\n\n";
-
-    /** Test 1: Resting state (HR=72, normal AOP=87, normal PAP=22)
-
-
-
-    */
-    float rap = updateRAP(87.0f, 72.0f);
-    float lap = updateLAP(22.0f, 72.0f);
-    std::cout << "Resting: RAP=" << rap << " mmHg (expected ~2.3), LAP=" << lap << " mmHg (expected ~8.3)\n";
-    assert(rap > 2.0f && rap < 2.5f);   // 4 - (87*0.02) = 4 - 1.74 = 2.26
-    assert(lap > 8.0f && lap < 8.5f);   // 9 - (22*0.03) = 9 - 0.66 = 8.34
-
-    // Test 2: High AoP reduces RAP
-    float rap_high = updateRAP(150.0f, 72.0f);
-    std::cout << "High AoP (150): RAP=" << rap_high << " mmHg (should be lower than " << rap << ")\n";
-    assert(rap_high < rap);
-
-    // Test 3: High PAP reduces LAP
-    float lap_high = updateLAP(50.0f, 72.0f);
-    std::cout << "High PAP (50): LAP=" << lap_high << " mmHg (should be lower than " << lap << ")\n";
-    assert(lap_high < lap);
-
-    // Test 4: High HR increases both
-    float rap_fast = updateRAP(87.0f, 120.0f);
-    float lap_fast = updateLAP(22.0f, 120.0f);
-    std::cout << "High HR (120): RAP=" << rap_fast << ", LAP=" << lap_fast << " (should be higher than resting)\n";
-    assert(rap_fast > rap);
-    assert(lap_fast > lap);
-
-    // Test 5: Clamping - values stay within limits
-    float rap_min = updateRAP(500.0f, 72.0f);
-    float rap_max = updateRAP(0.0f, 72.0f);
-    float lap_min = updateLAP(500.0f, 72.0f);
-    float lap_max = updateLAP(0.0f, 72.0f);
-    std::cout << "Clamping: RAP in [" << rap_min << " to " << rap_max 
-              << "], LAP in [" << lap_min << " to " << lap_max << "]\n";
-    assert(rap_min >= MIN_RAP && rap_min <= MAX_RAP);
-    assert(rap_max >= MIN_RAP && rap_max <= MAX_RAP);
-    assert(lap_min >= MIN_LAP && lap_min <= MAX_LAP);
-    assert(lap_max >= MIN_LAP && lap_max <= MAX_LAP);
-
-    std::cout << "\n========== ALL TESTS PASSED ==========\n\n";
+    std::cout << "Running CirculationModel tests...\n\n";
+    
+    test_default_initialization();
+    test_reset_function();
+    test_hr_increases_co();
+    test_series_circulation_balance();
+    test_preload_limits();
+    test_hr_clamping();
+    test_steady_state();
+    test_pressure_flow_relationship();
+    
+    std::cout << "\n✅ All CirculationModel tests passed!\n";
     return 0;
 }

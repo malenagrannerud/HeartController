@@ -1,38 +1,62 @@
 /**
- @file CirculationModel.h
- @brief Models how the circulation system ("body" of the patient) responds to changes 
- in 1) AOP or PAP and 2) HR. 
-
- Calculates the signals the pressure sensors will measure: true RAP and LAP
-
- This is a collection of stateless functions and static variables.
- No state (variables) --> no need for a class. Pure mathematical transformations.
+ * @file CirculationModel.h
+ * @brief Kroppens fysiologiska svar på pumpflöden
+ * 
+ * KOPPLING:
+ * - INPUT:  Faktisk PAP, faktisk AoP (från pumparna), HR (från användare)
+ * - OUTPUT: Nytt RAP, nytt LAP (fyllnadstryck som sensorerna mäter nästa varv)
+ * 
+ * FYSIOLOGI:
+ * - Högre afterload (PAP/AoP) → sämre venöst återflöde → lägre preload (RAP/LAP)
+ * - Högre HR → kortare fyllnadstid → högre preload
  */
 
-#ifndef CIRCULATIONMODEL_H
-#define CIRCULATIONMODEL_H
+#ifndef CIRCULATION_MODEL_H
+#define CIRCULATION_MODEL_H
 
-/**
- @brief Updates RAP based on changes in HR and AOP
- @param actualAoP Calculated from current RPM in @class Motor 
- @param HR User-set HR (bpm)
- @return New RAP (mmHg)
-
- If AoP increases, RAP should decrease (less blood returning to the heart)
- If HR increases, RAP should increase (more blood returning to the heart)
- */
-
-float updateRAP(float actualAoP, float HR);
-
-
-/**
- @brief Updates LAP based on changes in HR and PAP
- @param actualPAP Calculated from current RPM in @class Motor (an assumed knowlege about pump performance and pressure generation)
- @param HR User-set HR (bpm)
- @return New LAP (mmHg)
-    If PAP increases-->LAP decrease (less blood return to the heart)
-    If HR increases-->LAP increase (more blood return to the heart)
- */
-float updateLAP(float actualPAP, float HR);
+class CirculationModel {
+public:
+    CirculationModel();
+    void update(float hr, float actualPAP, float actualAoP);
+    void reset();
+    
+    float getRAP() const;
+    float getLAP() const;
+    float getPAP() const;
+    float getAoP() const;
+    
+    // Cardiac outputs - måste vara balanserade!
+    float getCO_RV() const;   // Höger sidas flöde (L/min)
+    float getCO_LV() const;   // Vänster sidas flöde (L/min)
+    float getCO() const;      // Medel/effektiv CO
+    float getBalance() const; // CO_RV / CO_LV (bör vara ~1.0)
+    
+private:
+    static constexpr float DEFAULT_HR = 72.0f;
+    static constexpr float DEFAULT_RAP = 6.0f;
+    static constexpr float DEFAULT_LAP = 10.0f;
+    static constexpr float DEFAULT_PAP = 15.0f;
+    static constexpr float DEFAULT_AOP = 90.0f;
+    
+    static constexpr float MIN_RAP = 1.0f;
+    static constexpr float MAX_RAP = 25.0f;
+    static constexpr float MIN_LAP = 2.0f;
+    static constexpr float MAX_LAP = 35.0f;
+    
+    static constexpr float SYSTEMIC_RESISTANCE = 1200.0f;
+    static constexpr float PULMONARY_RESISTANCE = 200.0f;
+    
+    static constexpr float AOP_EFFECT_ON_RAP = 0.02f;
+    static constexpr float PAP_EFFECT_ON_LAP = 0.03f;
+    static constexpr float HR_EFFECT_ON_PRELOAD = 0.03f;
+    
+    float m_hr;
+    float m_rap;
+    float m_lap;
+    float m_pap;
+    float m_aop;
+    
+    float clamp(float value, float min, float max) const;
+};
 
 #endif
