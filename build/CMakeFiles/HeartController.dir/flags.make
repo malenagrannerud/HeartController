@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/workspaces/HeartController/src -I/workspaces/HeartController/src/controller -I/workspaces/HeartController/src/model -I/workspaces/HeartController/src/view
 
-CXX_FLAGS = -std=gnu++17
+CXX_FLAGS = -g -std=gnu++17
 
