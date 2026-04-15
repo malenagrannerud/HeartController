@@ -1,6 +1,6 @@
 /**
  * @file Motor.h
- * @brief Models one motor for one ventricle
+ * @brief Pump motor - flow controlled
  */
 
 #ifndef MOTOR_H
@@ -8,29 +8,28 @@
 
 class Motor {
 public:
-    static constexpr int MAX_RPM = 10000;
-    static constexpr int MAX_VOLTAGE = 20;
+    static constexpr float MAX_RPM = 10000.0f;
+    static constexpr float MAX_VOLTAGE = 20.0f;
     static constexpr float TAU = 0.25f;
     
-    explicit Motor(float maxPressure);
-    void initialize(float defaultRPM);
+    explicit Motor(float maxFlow);
+    void initialize(float startRPM);
     void update(float dt);
-    void setTargetPressure(float targetPressure);
+    
+    void setTargetFlow(float flow);
     void reduceSpeed(float reductionFactor);
     
-    float getActualPressure() const;
+    float getActualFlow() const;
     float getActualRPM() const;
     float getActualVoltage() const;
     float getSetpointRPM() const;
-    float getSetpointVoltage() const;
-    float getMaxPressure() const;
     
 private:
-    float pressureToRPM(float pressure) const;
-    float rpmToPressure(float rpm) const;
+    float flowToRPM(float flow) const;
+    float rpmToFlow(float rpm) const;
     float rpmToVoltage(float rpm) const;
     
-    float m_maxPressure;
+    float m_maxFlow;
     float m_setpointRPM;
     float m_currentRPM;
     float m_currentVoltage;

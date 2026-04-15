@@ -1,14 +1,6 @@
 /**
  * @file CirculationModel.h
- * @brief Kroppens fysiologiska svar på pumpflöden
- * 
- * KOPPLING:
- * - INPUT:  Faktisk PAP, faktisk AoP (från pumparna), HR (från användare)
- * - OUTPUT: Nytt RAP, nytt LAP (fyllnadstryck som sensorerna mäter nästa varv)
- * 
- * FYSIOLOGI:
- * - Högre afterload (PAP/AoP) → sämre venöst återflöde → lägre preload (RAP/LAP)
- * - Högre HR → kortare fyllnadstid → högre preload
+ * @brief Body's physiological response - pressure is result of flow
  */
 
 #ifndef CIRCULATION_MODEL_H
@@ -17,25 +9,23 @@
 class CirculationModel {
 public:
     CirculationModel();
-    void update(float hr, float actualPAP, float actualAoP);
+    
+    void update(float hr, float coRV, float coLV);
     void reset();
     
     float getRAP() const;
     float getLAP() const;
     float getPAP() const;
     float getAoP() const;
-    
-    // Cardiac outputs - måste vara balanserade!
-    float getCO_RV() const;   // Höger sidas flöde (L/min)
-    float getCO_LV() const;   // Vänster sidas flöde (L/min)
-    float getCO() const;      // Medel/effektiv CO
-    float getBalance() const; // CO_RV / CO_LV (bör vara ~1.0)
+    float getCO_RV() const;
+    float getCO_LV() const;
+    float getBalance() const;
     
 private:
-    static constexpr float DEFAULT_HR = 72.0f;
-    static constexpr float DEFAULT_RAP = 6.0f;
-    static constexpr float DEFAULT_LAP = 10.0f;
-    static constexpr float DEFAULT_PAP = 15.0f;
+    static constexpr float DEFAULT_HR = 72.0f; // Normal resting HR
+    static constexpr float DEFAULT_RAP = 4.0f; // At RAP=4 mmHg, Starling-> CO=5 L/min
+    static constexpr float DEFAULT_LAP = 8.0f; // At LAP=8 mmHg, Starling-> CO=5 L/min
+    static constexpr float DEFAULT_PAP = 20.0f;
     static constexpr float DEFAULT_AOP = 90.0f;
     
     static constexpr float MIN_RAP = 1.0f;
@@ -55,6 +45,8 @@ private:
     float m_lap;
     float m_pap;
     float m_aop;
+    float m_coRV;
+    float m_coLV;
     
     float clamp(float value, float min, float max) const;
 };

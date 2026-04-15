@@ -1,4 +1,3 @@
-
 /**
  * @file PressureSensor.h
  * @brief Pressure sensor simulation with noise
@@ -9,16 +8,13 @@
 
 class PressureSensor {
 public:
-    static constexpr float CALIBRATION_ZERO = 0.093f;
-    static constexpr float VOLTAGE_PER_MMHG = 0.0097f;
     static constexpr float NOISE_LEVEL = 0.05f;
     
-    explicit PressureSensor(float maxPressure);
+    PressureSensor();
     float measure(float truePressure);
-    float pressureToVoltage(float pressure) const;
     
 private:
-    float m_maxPressure;
+    static constexpr float MAX_PRESSURE = 100.0f;
 };
 
 #endif

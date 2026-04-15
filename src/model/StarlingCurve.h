@@ -1,44 +1,38 @@
 /**
  * @file StarlingCurve.h
- * @brief Frank-Starling curve - maps preload (atrial pressure) to target afterload
+ * @brief Frank-Starling curve. Maps 
+ *    - RAP [mmHg] to target CO_RV [L/min] and 
+ *    - LAP [mmHg] to target CO_LV [L/min].
  * 
- * The Frank-Starling mechanism: higher filling pressure → stronger contraction → higher stroke volume.
- * This class provides piecewise linear interpolation between defined breakpoints.
+ * Higher RAP/LAP (Preload) -> stronger contraction -> higher CO (Cardiac Output).
+ * 
+ * X-axis: Preload (RAP/LAP) in mmHg
+ * Y-axis: Cardiac Output (CO) in L/min (calibrated for REFERENCE_HR)
  */
 
-#ifndef STARLING_CURVE_H  // Header guard - prevents double inclusion
+#ifndef STARLING_CURVE_H  
 #define STARLING_CURVE_H
 
-#include <vector>   // has std::vector - stores the curve breakpoints
-#include <utility>  // has std::pair - each point is (preload, targetPressure)
+#include <vector>   
+#include <utility>  
 
 class StarlingCurve {
 public:
-    /**
-     * @return Default points RV: RAP (mmHg) → target PAP (mmHg)
-     */
-    static std::vector<std::pair<float, float>> getDefaultRVPoints();
+    static std::vector<std::pair<float, float>> getRVPoints();
+    static std::vector<std::pair<float, float>> getLVPoints();
     
-    /**
-     * @return Default points LV: LAP (mmHg) → target AoP (mmHg)
-     */
-    static std::vector<std::pair<float, float>> getDefaultLVPoints();
-    
-    /**
-     * @brief Construct a curve from breakpoints
-     * @param points Vector of (preload, targetPressure) pairs - sorted automatically
-     */
     explicit StarlingCurve(const std::vector<std::pair<float, float>>& points);
     
     /**
-     * @brief Evaluate the curve at a given preload
+     * @brief Get cardiac output for given preload at specified heart rate
      * @param preload Atrial filling pressure (mmHg)
-     * @return Target afterload pressure (mmHg) via linear interpolation
+     * @param hr Heart rate (bpm)
+     * @return Cardiac output (L/min)
      */
-    float evaluate(float preload) const;
+    float evaluate(float preload, float hr) const;
     
 private:
-    std::vector<std::pair<float, float>> m_breakpoints;  // Sorted (x, y) points
+    std::vector<std::pair<float, float>> m_points;
 };
 
-#endif  // STARLING_CURVE_H
+#endif

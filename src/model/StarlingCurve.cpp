@@ -1,40 +1,51 @@
 #include "StarlingCurve.h"
 #include <algorithm>
 
-std::vector<std::pair<float, float>> StarlingCurve::getDefaultRVPoints() {
+std::vector<std::pair<float, float>> StarlingCurve::getRVPoints() {
+    // RAP (mmHg) → CO (L/min) at HR=72
     return {
         {0.0f, 0.0f},
-        {2.0f, 40.0f},
-        {4.0f, 50.0f},
-        {6.0f, 60.0f},
-        {12.0f, 70.0f}
+        {2.0f, 3.0f},
+        {4.0f, 5.0f},
+        {7.0f, 6.5f},
+        {12.0f, 8.0f}
     };
 }
 
-std::vector<std::pair<float, float>> StarlingCurve::getDefaultLVPoints() {
+std::vector<std::pair<float, float>> StarlingCurve::getLVPoints() {
+    // LAP (mmHg) → CO (L/min) at HR=72
     return {
         {0.0f, 0.0f},
-        {5.0f, 50.0f},
-        {12.0f, 75.0f},
-        {20.0f, 90.0f}
+        {5.0f, 3.5f},
+        {8.0f, 5.0f},
+        {14.0f, 6.5f},
+        {22.0f, 8.0f}
     };
 }
 
 StarlingCurve::StarlingCurve(const std::vector<std::pair<float, float>>& points) 
-    : m_breakpoints(points) {
-    std::sort(m_breakpoints.begin(), m_breakpoints.end());
+    : m_points(points) {
+    std::sort(m_points.begin(), m_points.end(),
+              [](const auto& a, const auto& b) { return a.first < b.first; });
 }
 
-float StarlingCurve::evaluate(float preload) const {
-    if (m_breakpoints.empty()) return 0;
-    if (preload <= m_breakpoints[0].first) return m_breakpoints[0].second;
-    if (preload >= m_breakpoints.back().first) return m_breakpoints.back().second;
+float StarlingCurve::evaluate(float preload, float hr) const {
+    if (m_points.empty()) return 0.0f;
     
-    for (size_t i = 0; i < m_breakpoints.size() - 1; i++) {
-        if (preload >= m_breakpoints[i].first && preload <= m_breakpoints[i+1].first) {
-            float t = (preload - m_breakpoints[i].first) / (m_breakpoints[i+1].first - m_breakpoints[i].first);
-            return m_breakpoints[i].second + t * (m_breakpoints[i+1].second - m_breakpoints[i].second);
+    float coAt72;
+    if (preload <= m_points[0].first) {
+        coAt72 = m_points[0].second;
+    } else if (preload >= m_points.back().first) {
+        coAt72 = m_points.back().second;
+    } else {
+        for (size_t i = 0; i < m_points.size() - 1; ++i) {
+            if (preload >= m_points[i].first && preload <= m_points[i + 1].first) {
+                float t = (preload - m_points[i].first) / (m_points[i + 1].first - m_points[i].first);
+                coAt72 = m_points[i].second + t * (m_points[i + 1].second - m_points[i].second);
+                break;
+            }
         }
     }
-    return 0;
+    
+    return coAt72 * (hr / 72.0f);
 }

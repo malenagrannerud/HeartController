@@ -1,7 +1,5 @@
 #include "Terminal.h"
 #include <iostream>
-#include <thread>
-#include <chrono>
 #include <termios.h>
 #include <unistd.h>
 #include <sys/select.h>
@@ -45,14 +43,14 @@ void printHeader() {
     std::cout << "==============================================================================================================\n\n";
     std::cout << "  COMMANDS\n";
     std::cout << "  [s] start\n";
-    std::cout << "  [u] increase heart rate\n";
-    std::cout << "  [d] decrease heart rate\n";
+    std::cout << "  [u] increase heart rate +5\n";
+    std::cout << "  [d] decrease heart rate -5\n";
     std::cout << "  [q] quit\n\n";
     
-    std::cout << "      HR     |      CARDIAC OUTPUT       |         RIGHT HEART          |         LEFT HEART           |\n";
-    std::cout << "Time  bpm     |  CO_RV  CO_LV   BAL      |  RAP   PAP  RPM_R  V_R Err   |  LAP   AoP  RPM_L  V_L Err   |   ALARM\n";
-    std::cout << " sec           | L/min  L/min   RV/LV    | mmHg  mmHg  rpm    V  mmHg   | mmHg  mmHg  rpm    V  mmHg   |\n";
-    std::cout << "--------------------------------------------------------------------------------------------------------------\n";
+    std::cout << "                |      CARDIAC OUTPUT      |         RIGHT VENTRICLE          |         LEFT VENTRICLE           |\n";
+    std::cout << "Time   HR       | CO_RV   CO_LV   BAL      | RAP    PAP    RPM_R  V_R  Err    | LAP    AoP    RPM_L  V_L  Err    | ALARM\n";
+    std::cout << "[sec] [BPM]     | [L/min] [L/min] [RV/LV]  | [mmHg] [mmHg] [rpm]  [V]  [L/min]| [mmHg] [mmHg] [rpm]  [V]  [L/min]|\n";
+    std::cout << "-------------------------------------------------------------------------------------------------------------------------\n";
     std::cout.flush();
 }
 
@@ -72,7 +70,6 @@ void printDataRow(float time, float hr,
     std::cout << std::setw(5) << std::fixed << std::setprecision(1) << coRV << " ";
     std::cout << std::setw(5) << std::fixed << std::setprecision(1) << coLV << " ";
     
-    // Balansindikator med färg/varning
     if (balance < 0.9f || balance > 1.1f) {
         std::cout << " *** ";
     } else {
@@ -118,7 +115,6 @@ void printSummary(int count, float avgHR, float avgCO, float avgBalance,
     std::cout << "Data points: " << count << " | Duration: " << static_cast<int>(count * 0.05f) << "s\n";
     std::cout << "HR: " << static_cast<int>(avgHR + 0.5f) << " bpm | CO: " << std::fixed << std::setprecision(1) << avgCO << " L/min\n";
     
-    // Balansvarning
     std::cout << "RV/LV Balance: " << std::fixed << std::setprecision(2) << avgBalance;
     if (avgBalance < 0.9f || avgBalance > 1.1f) {
         std::cout << " *** UNBALANCED! ***";

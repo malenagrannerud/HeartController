@@ -1,8 +1,3 @@
-/**
- * @file Terminal.h
- * @brief Terminal I/O handling for TAH simulation
- */
-
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
