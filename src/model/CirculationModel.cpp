@@ -28,12 +28,15 @@ void CirculationModel::update(float hr, float coRV, float coLV) {
     m_pap = (coRV * PULMONARY_RESISTANCE) / 80.0f;
     m_aop = (coLV * SYSTEMIC_RESISTANCE) / 80.0f;
     
-    float hrEffect = (m_hr - DEFAULT_HR) * HR_EFFECT_ON_PRELOAD;
+    float balanceError = (coRV - coLV) * 0.5f;
+    m_lap += balanceError;
+    m_rap -= balanceError;
     
-    m_rap = DEFAULT_RAP - (m_aop * AOP_EFFECT_ON_RAP) + hrEffect;
+    // NEGATIV FEEDBACK - MINUS, inte plus!
+    m_rap -= m_aop * AOP_EFFECT_ON_RAP;   // Högre AoP → lägre RAP
+    m_lap -= m_pap * PAP_EFFECT_ON_LAP;   // Högre PAP → lägre LAP
+    
     m_rap = clamp(m_rap, MIN_RAP, MAX_RAP);
-    
-    m_lap = DEFAULT_LAP - (m_pap * PAP_EFFECT_ON_LAP) + hrEffect;
     m_lap = clamp(m_lap, MIN_LAP, MAX_LAP);
 }
 

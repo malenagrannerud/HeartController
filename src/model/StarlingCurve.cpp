@@ -2,18 +2,16 @@
 #include <algorithm>
 
 std::vector<std::pair<float, float>> StarlingCurve::getRVPoints() {
-    // RAP (mmHg) → CO (L/min) at HR=72
     return {
         {0.0f, 0.0f},
-        {2.0f, 3.0f},
-        {4.0f, 5.0f},
-        {7.0f, 6.5f},
-        {12.0f, 8.0f}
+        {2.0f, 4.0f},    // Öka från 3.0
+        {4.0f, 5.0f},    // Behåll 5.0
+        {7.0f, 6.5f},    // Öka från 6.5
+        {12.0f, 8.0f}    // Behåll 8.0
     };
 }
 
 std::vector<std::pair<float, float>> StarlingCurve::getLVPoints() {
-    // LAP (mmHg) → CO (L/min) at HR=72
     return {
         {0.0f, 0.0f},
         {5.0f, 3.5f},
@@ -32,7 +30,7 @@ StarlingCurve::StarlingCurve(const std::vector<std::pair<float, float>>& points)
 float StarlingCurve::evaluate(float preload, float hr) const {
     if (m_points.empty()) return 0.0f;
     
-    float coAt72;
+    float coAt72 = 0.0f;
     if (preload <= m_points[0].first) {
         coAt72 = m_points[0].second;
     } else if (preload >= m_points.back().first) {
@@ -46,6 +44,5 @@ float StarlingCurve::evaluate(float preload, float hr) const {
             }
         }
     }
-    
     return coAt72 * (hr / 72.0f);
 }

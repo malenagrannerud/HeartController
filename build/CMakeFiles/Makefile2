@@ -245,8 +245,8 @@ CMakeFiles/run_sim.dir/clean:
 # Target rules for target CMakeFiles/run_tests.dir
 
 # All Build rule for target.
-CMakeFiles/run_tests.dir/all: CMakeFiles/test_starling.dir/all
 CMakeFiles/run_tests.dir/all: CMakeFiles/test_circulation.dir/all
+CMakeFiles/run_tests.dir/all: CMakeFiles/test_starling.dir/all
 CMakeFiles/run_tests.dir/all: CMakeFiles/test_motor.dir/all
 CMakeFiles/run_tests.dir/all: CMakeFiles/test_sensor.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/depend
