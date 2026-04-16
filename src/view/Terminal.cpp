@@ -47,9 +47,9 @@ void printHeader() {
     std::cout << "  [d] decrease heart rate -5\n";
     std::cout << "  [q] quit\n\n";
     
-    std::cout << "                |      CARDIAC OUTPUT      |         RIGHT VENTRICLE          |         LEFT VENTRICLE           |\n";
-    std::cout << "Time   HR       | CO_RV   CO_LV   BAL      | RAP    PAP    RPM_R  V_R  Err    | LAP    AoP    RPM_L  V_L  Err    | ALARM\n";
-    std::cout << "[sec] [BPM]     | [L/min] [L/min] [RV/LV]  | [mmHg] [mmHg] [rpm]  [V]  [L/min]| [mmHg] [mmHg] [rpm]  [V]  [L/min]|\n";
+    std::cout << "              |     RIGHT VENTRICLE            |         LEFT VENTRICLE         |                \n";
+    std::cout << "Time   HR     |  RAP    CO_RV    PAP     RPM_R |  LAP    CO_LV    AoP    RPM_L  | CO Bal  | ALARM\n";
+    std::cout << "[sec] [BPM]   | [mmHg] [L/min]  [mmHg]  [rpm]  | [mmHg] [L/min]  [mmHg] [rpm]   |[RV/LV]  |      \n";
     std::cout << "-------------------------------------------------------------------------------------------------------------------------\n";
     std::cout.flush();
 }
@@ -59,39 +59,48 @@ void printPulseMessage(float hr) {
     std::cout.flush();
 }
 
+
+
+
+
 void printDataRow(float time, float hr, 
-                  float coRV, float coLV, float balance,
-                  float rap, float pap, float rpmRight, float vRight, float errRight,
-                  float lap, float aop, float rpmLeft, float vLeft, float errLeft,
+                  float rap, float coRV, float pap, float rpmRight,
+                  float lap, float coLV, float aop, float rpmLeft, 
+                  float balance,
                   const char* alarm) {
     
-    std::cout << std::setw(4) << static_cast<int>(time) << "  ";
-    std::cout << std::setw(3) << static_cast<int>(hr) << "     | ";
-    std::cout << std::setw(5) << std::fixed << std::setprecision(1) << coRV << " ";
-    std::cout << std::setw(5) << std::fixed << std::setprecision(1) << coLV << " ";
+    // Time och HR
+    std::cout << std::setw(5) << std::left << static_cast<int>(time) << "  ";
+    std::cout << std::setw(4) << std::left << static_cast<int>(hr) << "   | ";
     
+    // RIGHT VENTRICLE: RAP, CO_RV, PAP, RPM_R
+    std::cout << std::setw(5) << std::right << static_cast<int>(rap + 0.5f) << "  ";
+    std::cout << std::setw(7) << std::fixed << std::setprecision(1) << coRV << "  ";
+    std::cout << std::setw(6) << static_cast<int>(pap + 0.5f) << "  ";
+    std::cout << std::setw(6) << static_cast<int>(rpmRight + 0.5f) << "  | ";
+    
+    // LEFT VENTRICLE: LAP, CO_LV, AoP, RPM_L
+    std::cout << std::setw(5) << std::right << static_cast<int>(lap + 0.5f) << "  ";
+    std::cout << std::setw(7) << std::fixed << std::setprecision(1) << coLV << "  ";
+    std::cout << std::setw(6) << static_cast<int>(aop + 0.5f) << "  ";
+    std::cout << std::setw(6) << static_cast<int>(rpmLeft + 0.5f) << "   | ";
+    
+    // CO Bal (Balance)
     if (balance < 0.9f || balance > 1.1f) {
-        std::cout << " *** ";
+        std::cout << std::setw(7) << " ***   | ";
     } else {
-        std::cout << std::setw(5) << std::fixed << std::setprecision(2) << balance << " ";
+        std::cout << std::setw(7) << std::fixed << std::setprecision(2) << balance << "  | ";
     }
-    std::cout << "  | ";
     
-    std::cout << std::setw(4) << static_cast<int>(rap + 0.5f) << "  ";
-    std::cout << std::setw(4) << static_cast<int>(pap + 0.5f) << "  ";
-    std::cout << std::setw(5) << static_cast<int>(rpmRight + 0.5f) << "  ";
-    std::cout << std::setw(2) << static_cast<int>(vRight + 0.5f) << " ";
-    std::cout << std::setw(3) << static_cast<int>(errRight + 0.5f) << "   | ";
-    
-    std::cout << std::setw(4) << static_cast<int>(lap + 0.5f) << "  ";
-    std::cout << std::setw(4) << static_cast<int>(aop + 0.5f) << "  ";
-    std::cout << std::setw(5) << static_cast<int>(rpmLeft + 0.5f) << "  ";
-    std::cout << std::setw(2) << static_cast<int>(vLeft + 0.5f) << " ";
-    std::cout << std::setw(3) << static_cast<int>(errLeft + 0.5f) << "   | ";
-    
+    // ALARM
     std::cout << alarm << std::endl;
     std::cout.flush();
 }
+
+
+
+
+
 
 char waitForStart() {
     std::cout << "\nPress 's' to start, 'q' to quit: ";

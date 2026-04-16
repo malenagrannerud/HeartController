@@ -19,9 +19,23 @@ Simulation::Simulation()
     
     m_circulation.reset();
     
+    // 1. Beräkna vad flödet BÖR vara vid start (ca 5.0 L/min)
     float startCO_RV = m_starlingRV.evaluate(m_circulation.getRAP(), DEFAULT_HR);
     float startCO_LV = m_starlingLV.evaluate(m_circulation.getLAP(), DEFAULT_HR);
     
+    // 2. Räkna ut vilket RPM som krävs för dessa flöden
+    // Formel: (TargetFlow / MaxFlow) * MaxRPM
+
+    float startRPM_R = (startCO_RV / 10.0f) * 10000.0f; 
+    float startRPM_L = (startCO_LV / 12.0f) * 10000.0f;
+
+
+    // 3. TVINGA motorerna att starta på dessa varvtal direkt
+    m_rightPump.initialize(startRPM_R);
+    m_leftPump.initialize(startRPM_L);
+
+
+    // Sätt även setpoint så att de vill stanna kvar där
     m_rightPump.setTargetFlow(startCO_RV);
     m_leftPump.setTargetFlow(startCO_LV);
 }
@@ -93,13 +107,15 @@ void Simulation::run() {
         printDataRow(
             m_simTime,
             static_cast<float>(m_heartRate),
-            m_circulation.getCO_RV(),
-            m_circulation.getCO_LV(),
+            m_circulation.getRAP(), 
+            actualFlowRV, 
+            m_circulation.getPAP(), 
+            m_rightPump.getActualRPM(),
+            m_circulation.getLAP(), 
+            actualFlowLV, 
+            m_circulation.getAoP(), 
+            m_leftPump.getActualRPM(),
             m_circulation.getBalance(),
-            m_circulation.getRAP(), m_circulation.getPAP(),
-            m_rightPump.getSetpointRPM(), m_rightPump.getActualVoltage(), errorRight,
-            m_circulation.getLAP(), m_circulation.getAoP(),
-            m_leftPump.getSetpointRPM(), m_leftPump.getActualVoltage(), errorLeft,
             alarm
         );
         

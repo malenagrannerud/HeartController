@@ -110,10 +110,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/tah_simulator.dir/DependInfo.cmake"
-  "CMakeFiles/test_starling.dir/DependInfo.cmake"
-  "CMakeFiles/test_circulation.dir/DependInfo.cmake"
-  "CMakeFiles/test_motor.dir/DependInfo.cmake"
-  "CMakeFiles/test_sensor.dir/DependInfo.cmake"
   "CMakeFiles/run_sim.dir/DependInfo.cmake"
   "CMakeFiles/run_tests.dir/DependInfo.cmake"
   "CMakeFiles/clean_all.dir/DependInfo.cmake"

@@ -8,9 +8,9 @@ char getKey();
 void printHeader();
 
 void printDataRow(float time, float hr, 
-                  float coRV, float coLV, float balance,
-                  float rap, float pap, float rpmRight, float vRight, float errRight,
-                  float lap, float aop, float rpmLeft, float vLeft, float errLeft,
+                  float rap, float coRV, float pap, float rpmRight,
+                  float lap, float coLV, float aop, float rpmLeft, 
+                  float balance,
                   const char* alarm);
 
 void printSummary(int count, float avgHR, float avgCO, float avgBalance,

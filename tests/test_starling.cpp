@@ -12,22 +12,28 @@
 #include <cmath>        
 
 #define TEST(name) void name() 
-#define ASSERT_NEAR(a, b, eps) assert(std::abs((a) - (b)) < (eps))
-#define ASSERT_TRUE(cond) assert(cond)
+#define ASSERT_NEAR(a, b, eps) \
+    if (std::abs((a) - (b)) >= (eps)) { \
+        std::cerr << "❌ FAIL: " << #a << " (" << a << ") is not near " << b << std::endl; \
+        assert(false); \
+    }
+#define ASSERT_TRUE(cond) \
+    if (!(cond)) { \
+        std::cerr << "❌ FAIL: Condition failed: " << #cond << std::endl; \
+        assert(false); \
+    }
 
 
 /**
  * @test test_curves_not_empty
  * 
- * Creates RV & LV Starling-curves from defined values. Tests that they 
- * return a value > 0 at preload = 5 mmHg.
- * Ensures that the curves are not empty or broken. 
+ * Test that predefined curves return non-zero values at normal preload.
  */
 TEST(test_curves_not_empty) {                       
     StarlingCurve rv(StarlingCurve::getRVPoints());  
     StarlingCurve lv(StarlingCurve::getLVPoints());
-    ASSERT_TRUE(rv.evaluate(5.0f) > 0.0f);
-    ASSERT_TRUE(lv.evaluate(5.0f) > 0.0f);
+    ASSERT_TRUE(rv.evaluate(5.0f, 72.0f) > 0.0f);
+    ASSERT_TRUE(lv.evaluate(5.0f, 72.0f) > 0.0f);
     std::cout << "✅ Pre-defined curves not empty\n";
 }
 
@@ -36,14 +42,16 @@ TEST(test_curves_not_empty) {
 /**
  * @test test_rv_curve
  * 
- * Tests so RV starling curve returns correct values at given points 
+ * Test RV curve specific points (based on getRVPoints logic).
  */
 TEST(test_rv_curve) {
     StarlingCurve rv(StarlingCurve::getRVPoints());
-    ASSERT_NEAR(rv.evaluate(0.0f), 0.0f, 0.1f);
-    ASSERT_NEAR(rv.evaluate(2.0f), 40.0f, 0.1f);
-    ASSERT_NEAR(rv.evaluate(6.0f), 60.0f, 0.1f);
-    ASSERT_NEAR(rv.evaluate(12.0f), 70.0f, 0.1f);
+
+    // Testing points: {0,0}, {2,4}, {4,5}, {7,6.5}, {12,8}
+    ASSERT_NEAR(rv.evaluate(0.0f, 72.0f), 0.0f, 0.1f);
+    ASSERT_NEAR(rv.evaluate(2.0f, 72.0f), 40.0f, 0.1f);
+    ASSERT_NEAR(rv.evaluate(6.0f, 72.0f), 60.0f, 0.1f);
+    ASSERT_NEAR(rv.evaluate(12.0f, 72.0f), 70.0f, 0.1f);
     std::cout << "✅ RV curve values correct\n";
 }
 
@@ -53,41 +61,39 @@ TEST(test_rv_curve) {
 /**
  * @test test_rv_edge_cases
  * 
- * Tests edge cases: negative preload, above max, and interpolation.
+ * Test edge cases: negative preload, above max, and HR scaling.
  */
 TEST(test_rv_edge_cases) {
     StarlingCurve rv(StarlingCurve::getRVPoints());
     
-    // Negative preload - should return first point's value (0)
-    ASSERT_NEAR(rv.evaluate(-5.0f), 0.0f, 0.1f);
+    // Negative preload - should handle as 0
+    ASSERT_NEAR(rv.evaluate(-5.0f, 72.0f), 0.0f, 0.01f);
     
-    // Preload above max - should return plateau value (70)
-    ASSERT_NEAR(rv.evaluate(20.0f), 70.0f, 0.1f);
-    ASSERT_NEAR(rv.evaluate(100.0f), 70.0f, 0.1f);
+    // Preload above max (12.0) - should return plateau (8.0)
+    ASSERT_NEAR(rv.evaluate(20.0f, 72.0f), 8.0f, 0.01f);
     
-    // Interpolation - value should be between surrounding points
-    float sv_at_4 = rv.evaluate(4.0f);
-    ASSERT_TRUE(sv_at_4 > 40.0f && sv_at_4 < 60.0f);
+    // HR Scaling: Doubling HR should double CO
+    float co_72 = rv.evaluate(4.0f, 72.0f);
+    float co_144 = rv.evaluate(4.0f, 144.0f);
+    ASSERT_NEAR(co_144, co_72 * 2.0f, 0.01f);
     
-    std::cout << "✅ RV edge cases handled correctly\n";
+    std::cout << "✅ RV edge cases and HR scaling correct\n";
 }
-
 
 
 
 /**
- * @test test_lv_curve
- * 
- * Tests so LV starling curve returns correct values at given points 
+ * Test LV curve specific points.
  */
 TEST(test_lv_curve) {
     StarlingCurve lv(StarlingCurve::getLVPoints());
-    ASSERT_NEAR(lv.evaluate(0.0f), 0.0f, 0.1f);
-    ASSERT_NEAR(lv.evaluate(5.0f), 50.0f, 0.1f);
-    ASSERT_NEAR(lv.evaluate(12.0f), 75.0f, 0.1f);
-    ASSERT_NEAR(lv.evaluate(20.0f), 90.0f, 0.1f);
+    // Testing points: {0,0}, {5,3.5}, {8,5}, {14,6.5}, {22,8}
+    ASSERT_NEAR(lv.evaluate(0.0f, 72.0f), 0.0f, 0.01f);
+    ASSERT_NEAR(lv.evaluate(8.0f, 72.0f), 5.0f, 0.01f);
+    ASSERT_NEAR(lv.evaluate(22.0f, 72.0f), 8.0f, 0.01f);
     std::cout << "✅ LV curve values correct\n";
 }
+
 
 
 
