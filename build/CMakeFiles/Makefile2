@@ -64,6 +64,10 @@ CMAKE_BINARY_DIR = /workspaces/HeartController/build
 
 # The main recursive "all" target.
 all: CMakeFiles/tah_simulator.dir/all
+all: CMakeFiles/test_starling.dir/all
+all: CMakeFiles/test_circulation.dir/all
+all: CMakeFiles/test_motor.dir/all
+all: CMakeFiles/test_sensor.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +76,10 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/tah_simulator.dir/clean
+clean: CMakeFiles/test_starling.dir/clean
+clean: CMakeFiles/test_circulation.dir/clean
+clean: CMakeFiles/test_motor.dir/clean
+clean: CMakeFiles/test_sensor.dir/clean
 clean: CMakeFiles/run_sim.dir/clean
 clean: CMakeFiles/run_tests.dir/clean
 clean: CMakeFiles/clean_all.dir/clean
@@ -104,6 +112,110 @@ CMakeFiles/tah_simulator.dir/clean:
 .PHONY : CMakeFiles/tah_simulator.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/test_starling.dir
+
+# All Build rule for target.
+CMakeFiles/test_starling.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=23,24,25 "Built target test_starling"
+.PHONY : CMakeFiles/test_starling.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_starling.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_starling.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_starling.dir/rule
+
+# Convenience name for target.
+test_starling: CMakeFiles/test_starling.dir/rule
+.PHONY : test_starling
+
+# clean rule for target.
+CMakeFiles/test_starling.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/clean
+.PHONY : CMakeFiles/test_starling.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_circulation.dir
+
+# All Build rule for target.
+CMakeFiles/test_circulation.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=13,14,15,16 "Built target test_circulation"
+.PHONY : CMakeFiles/test_circulation.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_circulation.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_circulation.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_circulation.dir/rule
+
+# Convenience name for target.
+test_circulation: CMakeFiles/test_circulation.dir/rule
+.PHONY : test_circulation
+
+# clean rule for target.
+CMakeFiles/test_circulation.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/clean
+.PHONY : CMakeFiles/test_circulation.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_motor.dir
+
+# All Build rule for target.
+CMakeFiles/test_motor.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=17,18,19 "Built target test_motor"
+.PHONY : CMakeFiles/test_motor.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_motor.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_motor.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_motor.dir/rule
+
+# Convenience name for target.
+test_motor: CMakeFiles/test_motor.dir/rule
+.PHONY : test_motor
+
+# clean rule for target.
+CMakeFiles/test_motor.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/clean
+.PHONY : CMakeFiles/test_motor.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_sensor.dir
+
+# All Build rule for target.
+CMakeFiles/test_sensor.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=20,21,22 "Built target test_sensor"
+.PHONY : CMakeFiles/test_sensor.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_sensor.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_sensor.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_sensor.dir/rule
+
+# Convenience name for target.
+test_sensor: CMakeFiles/test_sensor.dir/rule
+.PHONY : test_sensor
+
+# clean rule for target.
+CMakeFiles/test_sensor.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/clean
+.PHONY : CMakeFiles/test_sensor.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/run_sim.dir
 
 # All Build rule for target.
@@ -133,7 +245,10 @@ CMakeFiles/run_sim.dir/clean:
 # Target rules for target CMakeFiles/run_tests.dir
 
 # All Build rule for target.
-CMakeFiles/run_tests.dir/all:
+CMakeFiles/run_tests.dir/all: CMakeFiles/test_starling.dir/all
+CMakeFiles/run_tests.dir/all: CMakeFiles/test_circulation.dir/all
+CMakeFiles/run_tests.dir/all: CMakeFiles/test_motor.dir/all
+CMakeFiles/run_tests.dir/all: CMakeFiles/test_sensor.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=3 "Built target run_tests"
@@ -141,7 +256,7 @@ CMakeFiles/run_tests.dir/all:
 
 # Build rule for subdir invocation for target.
 CMakeFiles/run_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/run_tests.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/HeartController/build/CMakeFiles 0
 .PHONY : CMakeFiles/run_tests.dir/rule

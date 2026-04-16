@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /workspaces/HeartController/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -128,6 +138,58 @@ tah_simulator: cmake_check_build_system
 tah_simulator/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/build
 .PHONY : tah_simulator/fast
+
+#=============================================================================
+# Target rules for targets named test_starling
+
+# Build rule for target.
+test_starling: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_starling
+.PHONY : test_starling
+
+# fast build rule for target.
+test_starling/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/build
+.PHONY : test_starling/fast
+
+#=============================================================================
+# Target rules for targets named test_circulation
+
+# Build rule for target.
+test_circulation: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_circulation
+.PHONY : test_circulation
+
+# fast build rule for target.
+test_circulation/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/build
+.PHONY : test_circulation/fast
+
+#=============================================================================
+# Target rules for targets named test_motor
+
+# Build rule for target.
+test_motor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_motor
+.PHONY : test_motor
+
+# fast build rule for target.
+test_motor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/build
+.PHONY : test_motor/fast
+
+#=============================================================================
+# Target rules for targets named test_sensor
+
+# Build rule for target.
+test_sensor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_sensor
+.PHONY : test_sensor
+
+# fast build rule for target.
+test_sensor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/build
+.PHONY : test_sensor/fast
 
 #=============================================================================
 # Target rules for targets named run_sim
@@ -222,6 +284,7 @@ src/model/CirculationModel.o: src/model/CirculationModel.cpp.o
 # target to build an object file
 src/model/CirculationModel.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/CirculationModel.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/src/model/CirculationModel.cpp.o
 .PHONY : src/model/CirculationModel.cpp.o
 
 src/model/CirculationModel.i: src/model/CirculationModel.cpp.i
@@ -230,6 +293,7 @@ src/model/CirculationModel.i: src/model/CirculationModel.cpp.i
 # target to preprocess a source file
 src/model/CirculationModel.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/CirculationModel.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/src/model/CirculationModel.cpp.i
 .PHONY : src/model/CirculationModel.cpp.i
 
 src/model/CirculationModel.s: src/model/CirculationModel.cpp.s
@@ -238,6 +302,7 @@ src/model/CirculationModel.s: src/model/CirculationModel.cpp.s
 # target to generate assembly for a file
 src/model/CirculationModel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/CirculationModel.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/src/model/CirculationModel.cpp.s
 .PHONY : src/model/CirculationModel.cpp.s
 
 src/model/Motor.o: src/model/Motor.cpp.o
@@ -246,6 +311,7 @@ src/model/Motor.o: src/model/Motor.cpp.o
 # target to build an object file
 src/model/Motor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/Motor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/src/model/Motor.cpp.o
 .PHONY : src/model/Motor.cpp.o
 
 src/model/Motor.i: src/model/Motor.cpp.i
@@ -254,6 +320,7 @@ src/model/Motor.i: src/model/Motor.cpp.i
 # target to preprocess a source file
 src/model/Motor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/Motor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/src/model/Motor.cpp.i
 .PHONY : src/model/Motor.cpp.i
 
 src/model/Motor.s: src/model/Motor.cpp.s
@@ -262,6 +329,7 @@ src/model/Motor.s: src/model/Motor.cpp.s
 # target to generate assembly for a file
 src/model/Motor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/Motor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/src/model/Motor.cpp.s
 .PHONY : src/model/Motor.cpp.s
 
 src/model/PressureSensor.o: src/model/PressureSensor.cpp.o
@@ -270,6 +338,7 @@ src/model/PressureSensor.o: src/model/PressureSensor.cpp.o
 # target to build an object file
 src/model/PressureSensor.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/PressureSensor.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/src/model/PressureSensor.cpp.o
 .PHONY : src/model/PressureSensor.cpp.o
 
 src/model/PressureSensor.i: src/model/PressureSensor.cpp.i
@@ -278,6 +347,7 @@ src/model/PressureSensor.i: src/model/PressureSensor.cpp.i
 # target to preprocess a source file
 src/model/PressureSensor.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/PressureSensor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/src/model/PressureSensor.cpp.i
 .PHONY : src/model/PressureSensor.cpp.i
 
 src/model/PressureSensor.s: src/model/PressureSensor.cpp.s
@@ -286,6 +356,7 @@ src/model/PressureSensor.s: src/model/PressureSensor.cpp.s
 # target to generate assembly for a file
 src/model/PressureSensor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/PressureSensor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/src/model/PressureSensor.cpp.s
 .PHONY : src/model/PressureSensor.cpp.s
 
 src/model/StarlingCurve.o: src/model/StarlingCurve.cpp.o
@@ -294,6 +365,8 @@ src/model/StarlingCurve.o: src/model/StarlingCurve.cpp.o
 # target to build an object file
 src/model/StarlingCurve.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/StarlingCurve.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/src/model/StarlingCurve.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/src/model/StarlingCurve.cpp.o
 .PHONY : src/model/StarlingCurve.cpp.o
 
 src/model/StarlingCurve.i: src/model/StarlingCurve.cpp.i
@@ -302,6 +375,8 @@ src/model/StarlingCurve.i: src/model/StarlingCurve.cpp.i
 # target to preprocess a source file
 src/model/StarlingCurve.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/StarlingCurve.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/src/model/StarlingCurve.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/src/model/StarlingCurve.cpp.i
 .PHONY : src/model/StarlingCurve.cpp.i
 
 src/model/StarlingCurve.s: src/model/StarlingCurve.cpp.s
@@ -310,6 +385,8 @@ src/model/StarlingCurve.s: src/model/StarlingCurve.cpp.s
 # target to generate assembly for a file
 src/model/StarlingCurve.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/model/StarlingCurve.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/src/model/StarlingCurve.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/src/model/StarlingCurve.cpp.s
 .PHONY : src/model/StarlingCurve.cpp.s
 
 src/model/Statistics.o: src/model/Statistics.cpp.o
@@ -360,6 +437,102 @@ src/view/Terminal.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tah_simulator.dir/build.make CMakeFiles/tah_simulator.dir/src/view/Terminal.cpp.s
 .PHONY : src/view/Terminal.cpp.s
 
+tests/test_circulation.o: tests/test_circulation.cpp.o
+.PHONY : tests/test_circulation.o
+
+# target to build an object file
+tests/test_circulation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/tests/test_circulation.cpp.o
+.PHONY : tests/test_circulation.cpp.o
+
+tests/test_circulation.i: tests/test_circulation.cpp.i
+.PHONY : tests/test_circulation.i
+
+# target to preprocess a source file
+tests/test_circulation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/tests/test_circulation.cpp.i
+.PHONY : tests/test_circulation.cpp.i
+
+tests/test_circulation.s: tests/test_circulation.cpp.s
+.PHONY : tests/test_circulation.s
+
+# target to generate assembly for a file
+tests/test_circulation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_circulation.dir/build.make CMakeFiles/test_circulation.dir/tests/test_circulation.cpp.s
+.PHONY : tests/test_circulation.cpp.s
+
+tests/test_motor.o: tests/test_motor.cpp.o
+.PHONY : tests/test_motor.o
+
+# target to build an object file
+tests/test_motor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/tests/test_motor.cpp.o
+.PHONY : tests/test_motor.cpp.o
+
+tests/test_motor.i: tests/test_motor.cpp.i
+.PHONY : tests/test_motor.i
+
+# target to preprocess a source file
+tests/test_motor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/tests/test_motor.cpp.i
+.PHONY : tests/test_motor.cpp.i
+
+tests/test_motor.s: tests/test_motor.cpp.s
+.PHONY : tests/test_motor.s
+
+# target to generate assembly for a file
+tests/test_motor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_motor.dir/build.make CMakeFiles/test_motor.dir/tests/test_motor.cpp.s
+.PHONY : tests/test_motor.cpp.s
+
+tests/test_sensor.o: tests/test_sensor.cpp.o
+.PHONY : tests/test_sensor.o
+
+# target to build an object file
+tests/test_sensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/tests/test_sensor.cpp.o
+.PHONY : tests/test_sensor.cpp.o
+
+tests/test_sensor.i: tests/test_sensor.cpp.i
+.PHONY : tests/test_sensor.i
+
+# target to preprocess a source file
+tests/test_sensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/tests/test_sensor.cpp.i
+.PHONY : tests/test_sensor.cpp.i
+
+tests/test_sensor.s: tests/test_sensor.cpp.s
+.PHONY : tests/test_sensor.s
+
+# target to generate assembly for a file
+tests/test_sensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_sensor.dir/build.make CMakeFiles/test_sensor.dir/tests/test_sensor.cpp.s
+.PHONY : tests/test_sensor.cpp.s
+
+tests/test_starling.o: tests/test_starling.cpp.o
+.PHONY : tests/test_starling.o
+
+# target to build an object file
+tests/test_starling.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/tests/test_starling.cpp.o
+.PHONY : tests/test_starling.cpp.o
+
+tests/test_starling.i: tests/test_starling.cpp.i
+.PHONY : tests/test_starling.i
+
+# target to preprocess a source file
+tests/test_starling.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/tests/test_starling.cpp.i
+.PHONY : tests/test_starling.cpp.i
+
+tests/test_starling.s: tests/test_starling.cpp.s
+.PHONY : tests/test_starling.s
+
+# target to generate assembly for a file
+tests/test_starling.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_starling.dir/build.make CMakeFiles/test_starling.dir/tests/test_starling.cpp.s
+.PHONY : tests/test_starling.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -368,10 +541,15 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... clean_all"
 	@echo "... run_sim"
 	@echo "... run_tests"
 	@echo "... tah_simulator"
+	@echo "... test_circulation"
+	@echo "... test_motor"
+	@echo "... test_sensor"
+	@echo "... test_starling"
 	@echo "... src/controller/Simulation.o"
 	@echo "... src/controller/Simulation.i"
 	@echo "... src/controller/Simulation.s"
@@ -396,6 +574,18 @@ help:
 	@echo "... src/view/Terminal.o"
 	@echo "... src/view/Terminal.i"
 	@echo "... src/view/Terminal.s"
+	@echo "... tests/test_circulation.o"
+	@echo "... tests/test_circulation.i"
+	@echo "... tests/test_circulation.s"
+	@echo "... tests/test_motor.o"
+	@echo "... tests/test_motor.i"
+	@echo "... tests/test_motor.s"
+	@echo "... tests/test_sensor.o"
+	@echo "... tests/test_sensor.i"
+	@echo "... tests/test_sensor.s"
+	@echo "... tests/test_starling.o"
+	@echo "... tests/test_starling.i"
+	@echo "... tests/test_starling.s"
 .PHONY : help
 
 
