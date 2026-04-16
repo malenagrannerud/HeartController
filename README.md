@@ -50,12 +50,15 @@ The system simulates a TAH with:
 
 
 ### Control Loop Steps
-1. Initialize: Set baseline HR to 72 BPM.
-2. Read sensors: Read RAP and LAP sensors (with simulated noise).
-3. Calculate: Determine required CO using the piecewise linear Starling curve.
-4. Actuate: Adjust motor RPM to match the calculated output.
-5. Update circulation model: based on actual pressures and heart rate
-6. Display: Show real-time data and collect statistics
+
+1) Initialize: Start with a baseline HR of 72 BPM.
+2) User Input (Async): Listen for manual HR adjustments (simulate exercise/rest).
+3) Sense: Read RAP and LAP sensors (with simulated noise).
+4) Calculate: Determine target CO based on current HR and preload (Starling Law).
+5) Actuate: Adjust motor RPM using a feed-forward model to reach target CO.
+6) Update: Advance circulation model based on real-time pressures and HR.
+7) Visualize: Display real-time data and metrics.
+
 
 ## Controls
 
