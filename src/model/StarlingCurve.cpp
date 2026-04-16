@@ -4,20 +4,20 @@
 std::vector<std::pair<float, float>> StarlingCurve::getRVPoints() {
     return {
         {0.0f, 0.0f},
-        {2.0f, 4.0f},    // Öka från 3.0
-        {4.0f, 5.0f},    // Behåll 5.0
-        {7.0f, 6.5f},    // Öka från 6.5
-        {12.0f, 8.0f}    // Behåll 8.0
+        {3.0f, 2.0f},    
+        {4.0f, 5.0f},    
+        {10.0f, 7.0f},    
+        {15.0f, 8.5f}    
     };
 }
 
 std::vector<std::pair<float, float>> StarlingCurve::getLVPoints() {
     return {
         {0.0f, 0.0f},
-        {5.0f, 3.5f},
+        {6.0f, 2.0f},
         {8.0f, 5.0f},
-        {14.0f, 6.5f},
-        {22.0f, 8.0f}
+        {16.0f, 7.0f},
+        {22.0f, 8.5f}
     };
 }
 
@@ -44,5 +44,5 @@ float StarlingCurve::evaluate(float preload, float hr) const {
             }
         }
     }
-    return coAt72 * (hr / 72.0f);
+    return coAt72 * (hr / 72.0f);   // Scale 
 }

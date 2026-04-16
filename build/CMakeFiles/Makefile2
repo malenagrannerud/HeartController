@@ -246,9 +246,9 @@ CMakeFiles/run_sim.dir/clean:
 
 # All Build rule for target.
 CMakeFiles/run_tests.dir/all: CMakeFiles/test_circulation.dir/all
-CMakeFiles/run_tests.dir/all: CMakeFiles/test_starling.dir/all
 CMakeFiles/run_tests.dir/all: CMakeFiles/test_motor.dir/all
 CMakeFiles/run_tests.dir/all: CMakeFiles/test_sensor.dir/all
+CMakeFiles/run_tests.dir/all: CMakeFiles/test_starling.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/HeartController/build/CMakeFiles --progress-num=3 "Built target run_tests"

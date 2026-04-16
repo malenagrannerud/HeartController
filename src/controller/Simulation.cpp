@@ -76,7 +76,7 @@ void Simulation::run() {
         if (measuredRAP < SUCTION_THRESHOLD) m_rightPump.reduceSpeed(0.8f);
         if (measuredLAP < SUCTION_THRESHOLD) m_leftPump.reduceSpeed(0.8f);
         
-        m_circulation.update(static_cast<float>(m_heartRate), actualFlowRV, actualFlowLV);
+        m_circulation.update(static_cast<float>(m_heartRate), actualFlowRV, actualFlowLV, dt);
         
         float errorRight = coRV - actualFlowRV;
         float errorLeft = coLV - actualFlowLV;

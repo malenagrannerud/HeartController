@@ -20,6 +20,8 @@ float Motor::flowToRPM(float flow) const {
     return std::max(0.0f, std::min(MAX_RPM, rpm));
 }
 
+
+// Calculates ACTUAL CO
 float Motor::rpmToFlow(float rpm) const {
     return (rpm / MAX_RPM) * m_maxFlow;
 }
