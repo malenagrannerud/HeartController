@@ -97,16 +97,24 @@ Column Descriptions
 
 ================ TAH CONTROL SYSTEM SYSTEM ================
  HR: 72 BPM 
+ 
 -----------------------------------------------------------
 RIGHT VENTRICLE (Pulmonary)     | LEFT VENTRICLE (Systemic)
+
 -----------------------------------------------------------
  INLET (RAP):  12.0 mmHg         | INLET (LAP):  10.2 mmHg
+ 
  TARGET CO:    5.1 L/min         | TARGET CO:    5.1 L/min
+ 
  ACTUAL CO:    5.0 L/min         | ACTUAL CO:    5.2 L/min
+ 
  ERROR    :   -0.1 L/min         | ERROR    :   +0.1 L/min
-                                 |
+ 
+                                 
 PUMP SPEED:   2450 RPM           | PUMP SPEED:   2800 RPM
+
 OUTLET (PAP): 25.4 mmHg          | OUTLET (AOP): 95.1 mmHg
+
 -----------------------------------------------------------
 
 
